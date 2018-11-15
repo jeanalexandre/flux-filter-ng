@@ -1,35 +1,17 @@
-import { NgModule }             from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {AppComponent} from "./app.component";
+import {ApplicationComponent} from "./application/application.component";
 
 const routes: Routes = [
-  { path: '', component: AppComponent },
-  // {
-  //   path: 'admin',
-  //   canActivate: [AuthGuardService],
-  //   loadChildren: '../admin/admin.module#AdminModule'
-  // },
-  // {
-  //   path: 'form',
-  //   loadChildren: '../form/form.module#FormModule'
-  // },
-  // {
-  //   path: 'login',
-  //   component: LoginComponent
-  // },
-  // {
-  //   path: '**',
-  //   component: NotFoundComponent
-  // }
-  {
-    path: '**',
-    redirectTo: '',
-    pathMatch: 'full'
-  }
+  {path: '', component: AppComponent},
+  {path: 'application', component: ApplicationComponent},
+  {path: '**', redirectTo: '', pathMatch: 'full'}
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}
