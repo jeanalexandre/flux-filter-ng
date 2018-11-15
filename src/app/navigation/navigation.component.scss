@@ -1,0 +1,19 @@
+.navBar {
+  width: 100vw;
+
+  .menu {
+    margin-left: 14px;
+    font-size: 18px;
+    .icon-button {
+      margin: 14px;
+    }
+  }
+
+  .icon {
+    margin-left: 14px;
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+}
