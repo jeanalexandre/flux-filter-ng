@@ -1,13 +1,23 @@
 .title-area {
   height: 10%;
-  border: solid 1px mediumpurple;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #4054af;
+  font-weight: bold;
+  font-size: 24px;
 }
 
 .container {
   height: 90%;
   width: 80%;
-  border: solid 1px red;
+  margin: auto;
 }
+
+.table-area {
+  border: solid #c7c7c7 1px;
+}
+
 table {
   width: 100%;
 
