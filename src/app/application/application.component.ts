@@ -18,7 +18,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 export class ApplicationComponent implements OnInit {
 
   public applications: Application[];
-  public displayedColumns: string[] = ['name', 'team', 'description'];
+  public displayedColumns: string[] = ['name', 'team', 'feature'];
   public expandedElement: Application;
 
 
