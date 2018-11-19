@@ -1,0 +1,27 @@
+.mat-toolbar-row {
+  height: 55px !important;
+}
+
+.mat-toolbar-multiple-rows {
+  min-height: 55px !important;
+}
+
+.navBar {
+  width: 100vw;
+
+  .menu {
+    margin-left: 14px;
+    font-size: 18px;
+    .icon-button {
+      margin: 14px;
+    }
+  }
+
+  .icon {
+    margin-left: 14px;
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+}
