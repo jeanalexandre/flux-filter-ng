@@ -1,3 +1,8 @@
+/deep/ .mat-sort-header-container {
+  display: flex !important;
+  justify-content: center !important;
+}
+
 .title-area {
   height: 10%;
   display: flex;
@@ -14,8 +19,18 @@
   margin: auto;
 }
 
+.filter-area {
+  width: 80%;
+  margin: auto;
+}
+
 .table-area {
-  border: solid #c7c7c7 1px;
+  //border: solid #c7c7c7 1px;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
 }
 
 table {
