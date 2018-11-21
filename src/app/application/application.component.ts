@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ApplicationService} from "../services/application.service";
 import {Application} from "../models/application.model";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {MatSort, MatTableDataSource, Sort} from "@angular/material";
 
 @Component({
   selector: 'app-application',
@@ -20,12 +21,34 @@ export class ApplicationComponent implements OnInit {
   public applications: Application[];
   public displayedColumns: string[] = ['name', 'team', 'feature'];
   public expandedElement: Application;
+  public dataSources;
 
+  @ViewChild(MatSort) sort: MatSort;
 
-  constructor(public applicationService: ApplicationService) { }
+  constructor(public applicationService: ApplicationService) {
+  }
 
   ngOnInit() {
     this.applications = this.applicationService.getAllApplications();
+    this.dataSources = new MatTableDataSource(this.applications);
+    this.dataSources.sort = this.sort;
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSources = this.applications.filter(application => {
+        return application.name.toLowerCase().includes(filterValue.toLowerCase())
+          || application.feature.toLowerCase().includes(filterValue.toLowerCase())
+          || application.team.toLowerCase().includes(filterValue.toLowerCase())
+      }
+    )
+  }
+
+  sortData(sort: Sort) {
+    const data = this.applications.slice();
+    if (!sort.active || sort.direction === '') {
+      this.dataSources = data;
+      return;
+    }
   }
 
 }
