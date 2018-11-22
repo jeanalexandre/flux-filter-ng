@@ -1,189 +1,40 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Application} from "../models/application.model";
+import {BehaviorSubject, Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApplicationService {
 
-  private applications: Application[] = [];
+  applications: Observable<Application[]>;
+  private _applications: BehaviorSubject<Application[]>;
+  private dataStore: {
+    applications: Application[];
+  };
 
-  constructor() {
-    this.applications.push(
-      new Application(
-        'Application 1',
-        ['HTML5', 'JAVA', 'JAVASCRIPT'],
-        'Team 1',
-        'Initialisation projet',
-        ));
-    this.applications.push(
-      new Application(
-        'Application 2',
-        ['HTML5', 'TYPESCRIPT', 'PYTHON'],
-        'Team 2',
-        'Ajout de fonctionalités',
-        ));
-    this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-        ));
-    // this.applications.push(
-    //   new Application(
-    //     'Application 3',
-    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
-    //     'Team 1',
-    //     'Configuration',
-    //   ));this.applications.push(
-    //   new Application(
-    //     'Application 3',
-    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
-    //     'Team 1',
-    //     'Configuration',
-    //   ));this.applications.push(
-    //   new Application(
-    //     'Application 3',
-    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
-    //     'Team 1',
-    //     'Configuration',
-    //   ));this.applications.push(
-    //   new Application(
-    //     'Application 3',
-    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
-    //     'Team 1',
-    //     'Configuration',
-    //   ));this.applications.push(
-    //   new Application(
-    //     'Application 3',
-    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
-    //     'Team 1',
-    //     'Configuration',
-    //   ));this.applications.push(
-    //   new Application(
-    //     'Application 3',
-    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
-    //     'Team 1',
-    //     'Configuration',
-    //   ));this.applications.push(
-    //   new Application(
-    //     'Application 3',
-    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
-    //     'Team 1',
-    //     'Configuration',
-    //   ));this.applications.push(
-    //   new Application(
-    //     'Application 3',
-    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
-    //     'Team 1',
-    //     'Configuration',
-    //   ));this.applications.push(
-    //   new Application(
-    //     'Application 3',
-    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
-    //     'Team 1',
-    //     'Configuration',
-    //   ));this.applications.push(
-    //   new Application(
-    //     'Application 3',
-    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
-    //     'Team 1',
-    //     'Configuration',
-    //   ));this.applications.push(
-    //   new Application(
-    //     'Application 3',
-    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
-    //     'Team 1',
-    //     'Configuration',
-    //   ));this.applications.push(
-    //   new Application(
-    //     'Application 3',
-    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
-    //     'Team 1',
-    //     'Configuration',
-    //   ));this.applications.push(
-    //   new Application(
-    //     'Application 3',
-    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
-    //     'Team 1',
-    //     'Configuration',
-    //   ));this.applications.push(
-    //   new Application(
-    //     'Application 3',
-    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
-    //     'Team 1',
-    //     'Configuration',
-    //   ));this.applications.push(
-    //   new Application(
-    //     'Application 3',
-    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
-    //     'Team 1',
-    //     'Configuration',
-    //   ));this.applications.push(
-    //   new Application(
-    //     'Application 3',
-    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
-    //     'Team 1',
-    //     'Configuration',
-    //   ));this.applications.push(
-    //   new Application(
-    //     'Application 3',
-    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
-    //     'Team 1',
-    //     'Configuration',
-    //   ));this.applications.push(
-    //   new Application(
-    //     'Application 3',
-    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
-    //     'Team 1',
-    //     'Configuration',
-    //   ));this.applications.push(
-    //   new Application(
-    //     'Application 3',
-    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
-    //     'Team 1',
-    //     'Configuration',
-    //   ));this.applications.push(
-    //   new Application(
-    //     'Application 3',
-    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
-    //     'Team 1',
-    //     'Configuration',
-    //   ));this.applications.push(
-    //   new Application(
-    //     'Application 3',
-    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
-    //     'Team 1',
-    //     'Configuration',
-    //   ));this.applications.push(
-    //   new Application(
-    //     'Application 3',
-    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
-    //     'Team 1',
-    //     'Configuration',
-    //   ));this.applications.push(
-    //   new Application(
-    //     'Application 3',
-    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
-    //     'Team 1',
-    //     'Configuration',
-    //   ));this.applications.push(
-    //   new Application(
-    //     'Application 3',
-    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
-    //     'Team 1',
-    //     'Configuration',
-    //   ));this.applications.push(
-    //   new Application(
-    //     'Application 3',
-    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
-    //     'Team 1',
-    //     'Configuration',
-    //   ));
+  constructor(private http: HttpClient) {
+    this.dataStore = { applications: [] };
+    this._applications = <BehaviorSubject<Application[]>>new BehaviorSubject([]);
+    this.applications = this._applications.asObservable();
+    this.loadAll();
   }
 
-  getAllApplications() {
-    return this.applications;
+  loadAll() {
+    this.http.get(`${environment.apiBaseUrl}/apps`).subscribe((data: Application[]) => {
+      console.log(data);
+      this.dataStore.applications = data;
+      this._applications.next(Object.assign({}, this.dataStore).applications);
+    }, error => console.log('Could not load applications.' ));
+  }
+
+  create(application: Application) {
+    this.http.post(`${environment.apiBaseUrl}/apps`, application).subscribe(data => {
+      this.dataStore.applications.push(data);
+      this._applications.next(Object.assign({}, this.dataStore).applications);
+    }, error => console.log('Could not create application.'));
   }
 }
