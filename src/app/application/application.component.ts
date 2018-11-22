@@ -2,7 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ApplicationService} from "../services/application.service";
 import {Application} from "../models/application.model";
 import {animate, state, style, transition, trigger} from "@angular/animations";
-import {MatSort, MatTableDataSource, Sort} from "@angular/material";
+import {MatDialog, MatSort, MatTableDataSource, Sort} from "@angular/material";
+import {AddApplicationDialogComponent} from "./add-application-dialog/add-application-dialog.component";
 
 @Component({
   selector: 'app-application',
@@ -19,13 +20,14 @@ import {MatSort, MatTableDataSource, Sort} from "@angular/material";
 export class ApplicationComponent implements OnInit {
 
   public applications: Application[];
-  public displayedColumns: string[] = ['name', 'team', 'feature'];
+  public displayedColumns: string[] = ['name', 'team', 'description'];
   public expandedElement: Application;
   public dataSources;
 
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(public applicationService: ApplicationService) {
+  constructor(public applicationService: ApplicationService,
+              public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -37,18 +39,21 @@ export class ApplicationComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.dataSources = this.applications.filter(application => {
         return application.name.toLowerCase().includes(filterValue.toLowerCase())
-          || application.feature.toLowerCase().includes(filterValue.toLowerCase())
+          || application.description.toLowerCase().includes(filterValue.toLowerCase())
           || application.team.toLowerCase().includes(filterValue.toLowerCase())
       }
     )
   }
 
-  sortData(sort: Sort) {
-    const data = this.applications.slice();
-    if (!sort.active || sort.direction === '') {
-      this.dataSources = data;
-      return;
-    }
-  }
+  add(): void {
+      const dialogRef = this.dialog.open(AddApplicationDialogComponent, {
+        width: '80vw',
+        height: '70vh',
+        data: {application: new Application()}
+      });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
+  }
 }

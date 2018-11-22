@@ -1,7 +1,8 @@
 import {
+  MatAutocompleteModule,
   MatButtonModule,
   MatCardModule,
-  MatCheckboxModule, MatFormFieldModule,
+  MatCheckboxModule, MatChipsModule, MatDialogModule, MatFormFieldModule,
   MatIconModule, MatInputModule, MatMenuModule, MatSortModule,
   MatTableModule,
   MatToolbarModule, MatTooltipModule
@@ -21,6 +22,9 @@ import {NgModule} from "@angular/core";
     MatFormFieldModule,
     MatInputModule,
     MatSortModule,
+    MatDialogModule,
+    MatChipsModule,
+    MatAutocompleteModule,
   ],
   exports: [
     MatButtonModule,
@@ -34,6 +38,9 @@ import {NgModule} from "@angular/core";
     MatFormFieldModule,
     MatInputModule,
     MatSortModule,
+    MatDialogModule,
+    MatChipsModule,
+    MatAutocompleteModule,
   ],
 })
 export class MaterialsModule { }

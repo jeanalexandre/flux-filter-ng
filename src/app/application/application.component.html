@@ -1,14 +1,14 @@
 <div class="title-area">
   APPLICATIONS
 </div>
-<div class="filter-area">
-  <mat-card>
-    <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-    </mat-form-field>
-  </mat-card>
-</div>
 <div class="container">
+  <div class="filter-area">
+    <mat-card>
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </mat-card>
+  </div>
   <div class="table-area">
     <div class="table-container">
       <table mat-table
@@ -40,5 +40,10 @@
         <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
       </table>
     </div>
+  </div>
+  <div class="actions-area">
+    <mat-card>
+      <button mat-raised-button color="primary" (click)="add()">ADD APPLICATION</button>
+    </mat-card>
   </div>
 </div>

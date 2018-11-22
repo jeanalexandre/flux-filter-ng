@@ -1,0 +1,64 @@
+<mat-toolbar mat-dialog-title color="primary">
+  <mat-toolbar-row>
+    <h1>CREATE A NEW APPLICATION</h1>
+    <span class="spacer"></span>
+    <button color="primay" mat-icon-button (click)="onNoClick()">
+      <mat-icon class="mat-18">close</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div mat-dialog-content>
+  <form class="form-area" [formGroup]="applicationForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" formControlName="name">
+      <mat-hint align="end">Name of application</mat-hint>
+      <mat-error *ngIf="name.invalid">Name is required</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Team</mat-label>
+      <input matInput type="text" formControlName="team">
+      <mat-hint align="end">Team attached to application</mat-hint>
+      <mat-error *ngIf="team.invalid">Team is required</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <input matInput type="text" formControlName="description">
+      <mat-hint align="end">Description of application</mat-hint>
+      <mat-error *ngIf="description.invalid">Description is required</mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Technologies</mat-label>
+      <mat-chip-list #chipList>
+        <mat-chip
+          *ngFor="let techno of technologies"
+          [selectable]="selectable"
+          [removable]="removable"
+          (removed)="remove(techno)">
+          {{techno}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input
+          #technoInput
+          [formControl]="technoCtrl"
+          formControlName="techno"
+          [matAutocomplete]="auto"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let techno of filteredTechnologies" [value]="techno">
+          {{techno}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <div class="actions-area">
+      <button class="submit-button" mat-raised-button color="primary" type="submit"
+              [disabled]="name.invalid || team.invalid || description.invalid">Valider
+      </button>
+    </div>
+  </form>
+</div>
+

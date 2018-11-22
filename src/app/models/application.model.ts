@@ -3,7 +3,7 @@ export class Application {
     public name?: string,
     public technologies?: string[],
     public team?: string,
-    public feature?: string
+    public description?: string
   ) {
 
   }
