@@ -30,157 +30,157 @@ export class ApplicationService {
         'Team 1',
         'Configuration',
         ));
-    this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-      ));this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-      ));this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-      ));this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-      ));this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-      ));this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-      ));this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-      ));this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-      ));this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-      ));this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-      ));this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-      ));this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-      ));this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-      ));this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-      ));this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-      ));this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-      ));this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-      ));this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-      ));this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-      ));this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-      ));this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-      ));this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-      ));this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-      ));this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-      ));this.applications.push(
-      new Application(
-        'Application 3',
-        ['HTML5', 'JAVASCRIPT', 'RUBY'],
-        'Team 1',
-        'Configuration',
-      ));
+    // this.applications.push(
+    //   new Application(
+    //     'Application 3',
+    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
+    //     'Team 1',
+    //     'Configuration',
+    //   ));this.applications.push(
+    //   new Application(
+    //     'Application 3',
+    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
+    //     'Team 1',
+    //     'Configuration',
+    //   ));this.applications.push(
+    //   new Application(
+    //     'Application 3',
+    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
+    //     'Team 1',
+    //     'Configuration',
+    //   ));this.applications.push(
+    //   new Application(
+    //     'Application 3',
+    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
+    //     'Team 1',
+    //     'Configuration',
+    //   ));this.applications.push(
+    //   new Application(
+    //     'Application 3',
+    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
+    //     'Team 1',
+    //     'Configuration',
+    //   ));this.applications.push(
+    //   new Application(
+    //     'Application 3',
+    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
+    //     'Team 1',
+    //     'Configuration',
+    //   ));this.applications.push(
+    //   new Application(
+    //     'Application 3',
+    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
+    //     'Team 1',
+    //     'Configuration',
+    //   ));this.applications.push(
+    //   new Application(
+    //     'Application 3',
+    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
+    //     'Team 1',
+    //     'Configuration',
+    //   ));this.applications.push(
+    //   new Application(
+    //     'Application 3',
+    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
+    //     'Team 1',
+    //     'Configuration',
+    //   ));this.applications.push(
+    //   new Application(
+    //     'Application 3',
+    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
+    //     'Team 1',
+    //     'Configuration',
+    //   ));this.applications.push(
+    //   new Application(
+    //     'Application 3',
+    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
+    //     'Team 1',
+    //     'Configuration',
+    //   ));this.applications.push(
+    //   new Application(
+    //     'Application 3',
+    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
+    //     'Team 1',
+    //     'Configuration',
+    //   ));this.applications.push(
+    //   new Application(
+    //     'Application 3',
+    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
+    //     'Team 1',
+    //     'Configuration',
+    //   ));this.applications.push(
+    //   new Application(
+    //     'Application 3',
+    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
+    //     'Team 1',
+    //     'Configuration',
+    //   ));this.applications.push(
+    //   new Application(
+    //     'Application 3',
+    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
+    //     'Team 1',
+    //     'Configuration',
+    //   ));this.applications.push(
+    //   new Application(
+    //     'Application 3',
+    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
+    //     'Team 1',
+    //     'Configuration',
+    //   ));this.applications.push(
+    //   new Application(
+    //     'Application 3',
+    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
+    //     'Team 1',
+    //     'Configuration',
+    //   ));this.applications.push(
+    //   new Application(
+    //     'Application 3',
+    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
+    //     'Team 1',
+    //     'Configuration',
+    //   ));this.applications.push(
+    //   new Application(
+    //     'Application 3',
+    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
+    //     'Team 1',
+    //     'Configuration',
+    //   ));this.applications.push(
+    //   new Application(
+    //     'Application 3',
+    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
+    //     'Team 1',
+    //     'Configuration',
+    //   ));this.applications.push(
+    //   new Application(
+    //     'Application 3',
+    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
+    //     'Team 1',
+    //     'Configuration',
+    //   ));this.applications.push(
+    //   new Application(
+    //     'Application 3',
+    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
+    //     'Team 1',
+    //     'Configuration',
+    //   ));this.applications.push(
+    //   new Application(
+    //     'Application 3',
+    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
+    //     'Team 1',
+    //     'Configuration',
+    //   ));this.applications.push(
+    //   new Application(
+    //     'Application 3',
+    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
+    //     'Team 1',
+    //     'Configuration',
+    //   ));this.applications.push(
+    //   new Application(
+    //     'Application 3',
+    //     ['HTML5', 'JAVASCRIPT', 'RUBY'],
+    //     'Team 1',
+    //     'Configuration',
+    //   ));
   }
 
   getAllApplications() {

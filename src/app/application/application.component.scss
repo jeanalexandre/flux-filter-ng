@@ -20,12 +20,19 @@
 }
 
 .filter-area {
-  width: 80%;
-  margin: auto;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2px;
+}
+
+.actions-area {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .table-area {
-  //border: solid #c7c7c7 1px;
 }
 
 .mat-form-field {
@@ -37,8 +44,6 @@ table {
   width: 100%;
 
   th {
-    //background: #4054AF;
-    //color: whitesmoke;
     font-weight: bold;
     text-align: center;
     width: 33%;
