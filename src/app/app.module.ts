@@ -14,6 +14,8 @@ import {ErrorInterceptor} from "./_helpers/error.interceptor";
 import {JwtInterceptor} from "./_helpers/jwt.interceptor";
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
+import {CommonModule} from "@angular/common";
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -28,6 +30,11 @@ import {RegisterComponent} from "./register/register.component";
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    CommonModule,
+    ToastrModule.forRoot({
+      progressBar: true,
+      timeOut: 3000,
+    }),
     MaterialsModule,
     AppRoutingModule,
     FormsModule,

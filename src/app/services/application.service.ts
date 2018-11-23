@@ -3,6 +3,7 @@ import {Application} from "../models/application.model";
 import {BehaviorSubject, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import { environment } from '../../environments/environment';
+import {ToastrService} from "ngx-toastr";
 
 
 @Injectable({
@@ -16,7 +17,7 @@ export class ApplicationService {
     applications: Application[];
   };
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private toastr: ToastrService) {
     this.dataStore = { applications: [] };
     this._applications = <BehaviorSubject<Application[]>>new BehaviorSubject([]);
     this.applications = this._applications.asObservable();
@@ -25,16 +26,16 @@ export class ApplicationService {
 
   loadAll() {
     this.http.get(`${environment.apiBaseUrl}/apps`).subscribe((data: Application[]) => {
-      console.log(data);
       this.dataStore.applications = data;
       this._applications.next(Object.assign({}, this.dataStore).applications);
-    }, error => console.log('Could not load applications.' ));
+    }, error => this.toastr.error(error, 'Failed to load apps'));
   }
 
   create(application: Application) {
     this.http.post(`${environment.apiBaseUrl}/apps`, application).subscribe(data => {
       this.dataStore.applications.push(data);
       this._applications.next(Object.assign({}, this.dataStore).applications);
-    }, error => console.log('Could not create application.'));
+      this.toastr.success(`${application.name} was created`, 'Success');
+    }, error => this.toastr.error(error, 'Failed to create the application'));
   }
 }
