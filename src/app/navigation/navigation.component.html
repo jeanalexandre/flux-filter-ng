@@ -1,8 +1,8 @@
 <mat-toolbar class="navBar" color="primary">
   <mat-toolbar-row>
     <span>Flux Filter</span>
-    <span>
-      <button mat-button class="menu">
+    <span *ngIf="currentUser">
+      <button mat-button class="menu" routerLink="/application">
         <mat-icon class="icon-button">group_work</mat-icon>Applications
       </button>
     </span>

@@ -46,8 +46,6 @@ import {ToastrModule} from "ngx-toastr";
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-    //Décommenter pour activer le fakeBackend de l'authentification
-    // fakeBackendProvider,
   ],
   entryComponents: [
     AddApplicationDialogComponent

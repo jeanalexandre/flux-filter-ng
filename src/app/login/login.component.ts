@@ -15,9 +15,7 @@ export class LoginComponent implements OnInit {
 
   public loginForm: FormGroup;
   public loading = false;
-  public submitted = false;
   public returnUrl: string;
-  public error = '';
   public passVisible = false;
 
   @ViewChild('passwordElement') passwordElement: ElementRef;
@@ -27,6 +25,7 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -63,8 +62,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
-
     // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
@@ -78,7 +75,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate([this.returnUrl]);
         },
         error => {
-          this.error = error;
+          this.toastr.error(error, 'Failure to login');
           this.loading = false;
         });
   }
