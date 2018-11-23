@@ -11,19 +11,19 @@
   <form class="form-area" [formGroup]="applicationForm" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Name</mat-label>
-      <input matInput type="text" formControlName="name">
+      <input matInput type="text" formControlName="name" required>
       <mat-hint align="end">Name of application</mat-hint>
       <mat-error *ngIf="name.invalid">Name is required</mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Team</mat-label>
-      <input matInput type="text" formControlName="team">
+      <input matInput type="text" formControlName="team" required>
       <mat-hint align="end">Team attached to application</mat-hint>
       <mat-error *ngIf="team.invalid">Team is required</mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Description</mat-label>
-      <input matInput type="text" formControlName="description">
+      <input matInput type="text" formControlName="description" required>
       <mat-hint align="end">Description of application</mat-hint>
       <mat-error *ngIf="description.invalid">Description is required</mat-error>
     </mat-form-field>
@@ -54,7 +54,7 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-    <div class="actions-area">
+    <div class="dialog-actions-area">
       <button class="submit-button" mat-raised-button color="primary" type="submit"
               [disabled]="name.invalid || team.invalid || description.invalid">Valider
       </button>

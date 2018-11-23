@@ -1,0 +1,43 @@
+.title-area {
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #4054af;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.container {
+  height: 90%;
+  width: 80%;
+  margin: auto;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.visibility-pass {
+  position: absolute;
+  right: 0;
+  top: 10px;
+  cursor: pointer;
+  z-index: 10;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.visibility-pass:hover {
+  color: #4054af;
+}
+
+.enabled {
+  color: #4054af;
+}
+
+.disabled {
+  color: grey;
+}

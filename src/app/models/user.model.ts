@@ -5,7 +5,9 @@ export class User {
     public updatedAt?: Date,
     public email?: string,
     public firstName?: string,
-    public lastName?: string
+    public lastName?: string,
+    public token?: string,
+    public password?: string
   ) {
   }
 }

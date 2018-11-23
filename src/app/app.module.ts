@@ -9,7 +9,11 @@ import {ApplicationComponent} from "./application/application.component";
 import {NavigationComponent} from "./navigation/navigation.component";
 import {AddApplicationDialogComponent} from "./application/add-application-dialog/add-application-dialog.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {ErrorInterceptor} from "./_helpers/error.interceptor";
+import {JwtInterceptor} from "./_helpers/jwt.interceptor";
+import {LoginComponent} from "./login/login.component";
+import {RegisterComponent} from "./register/register.component";
 
 @NgModule({
   declarations: [
@@ -17,6 +21,8 @@ import {HttpClientModule} from "@angular/common/http";
     ApplicationComponent,
     NavigationComponent,
     AddApplicationDialogComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +36,12 @@ import {HttpClientModule} from "@angular/common/http";
   exports: [
     MaterialsModule,
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    //Décommenter pour activer le fakeBackend de l'authentification
+    // fakeBackendProvider,
+  ],
   entryComponents: [
     AddApplicationDialogComponent
   ],

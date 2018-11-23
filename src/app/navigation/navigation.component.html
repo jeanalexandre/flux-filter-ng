@@ -7,9 +7,25 @@
       </button>
     </span>
     <span class="spacer"></span>
-    Jean-Alexandre
-    <button mat-icon-button class="icon">
-      <mat-icon matTooltip="Se déconnecter">power_settings_new</mat-icon>
-    </button>
+    <ng-container *ngIf="currentUser; else register">
+      <div>
+        {{currentUser.firstName}}
+        <button mat-icon-button class="icon">
+          <mat-icon (click)="logout()" matTooltip="Se déconnecter">power_settings_new</mat-icon>
+        </button>
+      </div>
+    </ng-container>
+    <ng-template #register>
+      <ng-container *ngIf="router.url === '/login'; else login">
+        <button mat-button routerLink="/register">
+          Register
+        </button>
+      </ng-container>
+    </ng-template>
+    <ng-template #login>
+      <button mat-button routerLink="/login">
+        Login
+      </button>
+    </ng-template>
   </mat-toolbar-row>
 </mat-toolbar>
