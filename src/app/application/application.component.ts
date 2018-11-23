@@ -49,20 +49,6 @@ export class ApplicationComponent implements OnInit {
     )
   }
 
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSources.data.length;
-    return numSelected === numRows;
-  }
-
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSources.data.forEach(row => this.selection.select(row));
-  }
-
   add(): void {
     const dialogRef = this.dialog.open(AddApplicationDialogComponent, {
       width: '80vw',
@@ -71,7 +57,9 @@ export class ApplicationComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.applicationService.create(result);
+      if(result) {
+        this.applicationService.create(result);
+      }
     });
   }
 }
