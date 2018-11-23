@@ -8,6 +8,7 @@ import {
   MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import {NgModule} from "@angular/core";
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
   imports: [

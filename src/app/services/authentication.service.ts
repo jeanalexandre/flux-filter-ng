@@ -5,13 +5,14 @@ import {map} from 'rxjs/operators';
 
 import {environment} from "../../environments/environment";
 import {User} from "../models/user.model";
+import {ToastrService} from "ngx-toastr";
 
 @Injectable({providedIn: 'root'})
 export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private toastr: ToastrService) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -33,7 +34,7 @@ export class AuthenticationService {
           this.currentUserSubject.next(user);
         }
         return user;
-      }));
+      }))
   }
 
   logout() {

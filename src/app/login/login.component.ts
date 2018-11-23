@@ -2,7 +2,8 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-import {AuthenticationService} from "../services/authentification.service";
+import {AuthenticationService} from "../services/authentication.service";
+import {ToastrService} from "ngx-toastr";
 
 
 @Component({
@@ -25,7 +26,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
   ) { }
 
   ngOnInit(): void {
