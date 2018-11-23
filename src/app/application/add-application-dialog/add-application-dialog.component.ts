@@ -1,16 +1,8 @@
-import {Component, ElementRef, Inject, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
-import {
-  MAT_DIALOG_DATA,
-  MatAutocomplete,
-  MatAutocompleteSelectedEvent,
-  MatChipInputEvent,
-  MatDialogRef
-} from "@angular/material";
+import {Component, ElementRef, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
+import {MatAutocomplete, MatAutocompleteSelectedEvent, MatChipInputEvent, MatDialogRef} from "@angular/material";
 import {Application} from "../../models/application.model";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Observable} from "rxjs";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
-import {map, startWith} from "rxjs/operators";
 
 @Component({
   selector: 'add-application-dialog',

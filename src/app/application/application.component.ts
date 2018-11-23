@@ -4,6 +4,7 @@ import {Application} from "../models/application.model";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {MatDialog, MatSort, MatTableDataSource, Sort} from "@angular/material";
 import {AddApplicationDialogComponent} from "./add-application-dialog/add-application-dialog.component";
+import {SelectionModel} from "@angular/cdk/collections";
 
 @Component({
   selector: 'app-application',
@@ -23,6 +24,7 @@ export class ApplicationComponent implements OnInit {
   public displayedColumns: string[] = ['name', 'team', 'description'];
   public expandedElement: Application;
   public dataSources;
+  selection = new SelectionModel<Application>(true, []);
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -31,9 +33,11 @@ export class ApplicationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.applications = this.applicationService.getAllApplications();
-    this.dataSources = new MatTableDataSource(this.applications);
-    this.dataSources.sort = this.sort;
+    this.applicationService.applications.subscribe(applications => {
+      this.applications = applications;
+      this.dataSources = new MatTableDataSource(this.applications);
+      this.dataSources.sort = this.sort;
+    });
   }
 
   applyFilter(filterValue: string) {
@@ -45,15 +49,29 @@ export class ApplicationComponent implements OnInit {
     )
   }
 
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSources.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSources.data.forEach(row => this.selection.select(row));
+  }
+
   add(): void {
-      const dialogRef = this.dialog.open(AddApplicationDialogComponent, {
-        width: '80vw',
-        height: '70vh',
-        data: {application: new Application()}
-      });
+    const dialogRef = this.dialog.open(AddApplicationDialogComponent, {
+      width: '80vw',
+      height: '70vh',
+      data: {application: new Application()}
+    });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      this.applicationService.create(result);
     });
   }
 }

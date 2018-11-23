@@ -9,6 +9,7 @@ import {ApplicationComponent} from "./application/application.component";
 import {NavigationComponent} from "./navigation/navigation.component";
 import {AddApplicationDialogComponent} from "./application/add-application-dialog/add-application-dialog.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MaterialsModule,
     AppRoutingModule,
@@ -34,4 +36,5 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+}
