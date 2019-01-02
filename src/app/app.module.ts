@@ -16,6 +16,9 @@ import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
 import {CommonModule} from "@angular/common";
 import {ToastrModule} from "ngx-toastr";
+import {NgxGraphModule} from "@swimlane/ngx-graph";
+import {NgxChartsModule} from "@swimlane/ngx-charts";
+import {GraphComponent} from "./graph/graph.component";
 
 @NgModule({
   declarations: [
@@ -25,6 +28,7 @@ import {ToastrModule} from "ngx-toastr";
     AddApplicationDialogComponent,
     LoginComponent,
     RegisterComponent,
+    GraphComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +43,8 @@ import {ToastrModule} from "ngx-toastr";
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxChartsModule,
+    NgxGraphModule,
   ],
   exports: [
     MaterialsModule,
