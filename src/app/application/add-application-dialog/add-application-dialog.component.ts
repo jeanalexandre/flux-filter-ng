@@ -57,8 +57,23 @@ export class AddApplicationDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  arrayToString(array: string[]): string{
+    let result = '';
+    let flag = false;
+    for( let element of array) {
+      if (flag) {
+        result += ',' + element;
+      } else {
+        result += element;
+        flag = true;
+      }
+    }
+    return result;
+  }
+
   onSubmit(): void {
-    this.dialogRef.close(new Application(this.name.value, this.technologies,
+    const techno = this.arrayToString(this.technologies);
+    this.dialogRef.close(new Application(this.name.value, techno,
       this.team.value, this.description.value));
   }
 

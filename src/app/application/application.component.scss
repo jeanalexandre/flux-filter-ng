@@ -30,6 +30,9 @@
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .mat-form-field {
@@ -79,7 +82,7 @@ table {
 }
 
 .table-container {
-  height: 50vh;
+  max-height: 50vh;
   overflow: auto;
 }
 

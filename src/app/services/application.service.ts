@@ -4,6 +4,8 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import { environment } from '../../environments/environment';
 import {ToastrService} from "ngx-toastr";
+import {AppResult} from "../models/appResult.model";
+import {Params} from "@angular/router";
 
 
 @Injectable({
@@ -11,31 +13,42 @@ import {ToastrService} from "ngx-toastr";
 })
 export class ApplicationService {
 
-  applications: Observable<Application[]>;
-  private _applications: BehaviorSubject<Application[]>;
+  // ReactiveX object for datas
+  applications: Observable<AppResult>;
+  private _applications: BehaviorSubject<AppResult>;
   private dataStore: {
-    applications: Application[];
+    applications: AppResult;
   };
 
   constructor(private http: HttpClient, private toastr: ToastrService) {
-    this.dataStore = { applications: [] };
-    this._applications = <BehaviorSubject<Application[]>>new BehaviorSubject([]);
+    this.dataStore = { applications: {} };
+    this._applications = <BehaviorSubject<AppResult>>new BehaviorSubject({});
     this.applications = this._applications.asObservable();
     this.loadAll();
   }
 
+  // First load datas with 5 element per page
   loadAll() {
-    this.http.get(`${environment.apiBaseUrl}/apps`).subscribe((data: Application[]) => {
+    const params: Params = {'limit': 5, 'page': 0};
+    this.http.get(`${environment.apiBaseUrl}/apps`, {params}).subscribe((data: AppResult) => {
       this.dataStore.applications = data;
       this._applications.next(Object.assign({}, this.dataStore).applications);
     }, error => this.toastr.error(error, 'Failed to load apps'));
   }
 
-  create(application: Application) {
-    this.http.post(`${environment.apiBaseUrl}/apps`, application).subscribe(data => {
-      this.dataStore.applications.push(data);
+  // Refresh datas from back
+  refreshApps(params: Params) {
+    this.http.get(`${environment.apiBaseUrl}/apps`, {params}).subscribe((data: AppResult) => {
+      this.dataStore.applications = data;
       this._applications.next(Object.assign({}, this.dataStore).applications);
+    }, error => this.toastr.error(error, 'Failed to load apps'));
+  }
+
+  // Creation app' method
+  create(application: Application, paramsRefresh: {}) {
+    this.http.post(`${environment.apiBaseUrl}/apps`, application).subscribe(data => {
       this.toastr.success(`${application.name} was created`, 'Success');
+      this.refreshApps(paramsRefresh);
     }, error => this.toastr.error(error, 'Failed to create the application'));
   }
 }
