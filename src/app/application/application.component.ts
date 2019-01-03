@@ -2,10 +2,11 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ApplicationService} from "../services/application.service";
 import {Application} from "../models/application.model";
 import {animate, state, style, transition, trigger} from "@angular/animations";
-import {MatDialog, MatSort, MatTableDataSource, PageEvent} from "@angular/material";
+import {MatBottomSheet, MatBottomSheetRef, MatDialog, MatSort, MatTableDataSource, PageEvent} from "@angular/material";
 import {AddApplicationDialogComponent} from "./add-application-dialog/add-application-dialog.component";
 import {AppResult} from "../models/appResult.model";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {BottomSheetComponent} from "../bottom-sheet/bottom-sheet.component";
 
 @Component({
   selector: 'app-application',
@@ -39,8 +40,9 @@ export class ApplicationComponent implements OnInit {
 
   constructor(public applicationService: ApplicationService,
               public dialog: MatDialog,
+              private bottomSheet: MatBottomSheet,
               private formBuilder: FormBuilder,
-              ) {
+  ) {
   }
 
   ngOnInit() {
@@ -115,7 +117,14 @@ export class ApplicationComponent implements OnInit {
 
   // Delete app
   public delete(application: Application) {
-    this.applicationService.delete(application, this.makeParams());
+    let sheetRef =  this.bottomSheet.open(BottomSheetComponent, {
+      data: application
+    });
+    sheetRef.afterDismissed().subscribe( data => {
+      if(data && data.message=='delete') {
+        this.applicationService.delete(application, this.makeParams());
+      }
+    });
   }
 
   // Save params and refresh

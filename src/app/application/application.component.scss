@@ -84,8 +84,39 @@ table {
 
   .element-detail {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    height: 180px;
+
+    .techno-detail {
+      width: 80%;
+      height: 100%;
+
+      .techno-list {
+        display: flex;
+        justify-content: space-around;
+      }
+    }
+
+    .action-detail {
+      width: 20%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+
+      .delete-button {
+        width: 112px;
+        background-color: #d43d3d;
+        color: whitesmoke;
+      }
+
+      .update-button {
+        width: 112px;
+        background-color: #50af50;
+        color: whitesmoke;
+      }
+    }
   }
 }
 
