@@ -44,11 +44,21 @@ export class ApplicationService {
     }, error => this.toastr.error(error, 'Failed to load apps'));
   }
 
-  // Creation app' method
+  // Save new app
   create(application: Application, paramsRefresh: {}) {
     this.http.post(`${environment.apiBaseUrl}/apps`, application).subscribe(data => {
       this.toastr.success(`${application.name} was created`, 'Success');
       this.refreshApps(paramsRefresh);
     }, error => this.toastr.error(error, 'Failed to create the application'));
   }
+
+  // Delete the app in param
+  delete(application: Application, paramsRefresh: {}) {
+    this.http.delete(`${environment.apiBaseUrl}/apps/${application.id}`).subscribe( data => {
+      this.toastr.success(`${application.name} was deleted`, 'Success');
+      this.refreshApps(paramsRefresh);
+    }, error => this.toastr.error(error, 'Failed to create the application'));
+  }
+
+
 }

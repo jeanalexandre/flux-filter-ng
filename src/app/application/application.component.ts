@@ -71,6 +71,11 @@ export class ApplicationComponent implements OnInit {
     });
   }
 
+  // Delete app
+  public delete(application: Application) {
+    this.applicationService.delete(application, this.makeParams());
+  }
+
   // Save params and refresh
   public paginatorEvent(event) {
     this.pageEvent = event;
@@ -84,12 +89,23 @@ export class ApplicationComponent implements OnInit {
 
   // Make params object for refresh
   private makeParams() {
-    return {
-      'limit': this.pageEvent.pageSize,
-      'page': (this.pageEvent.pageIndex * this.pageEvent.pageSize),
-      'technologies': '',
-      'team': '',
-      'description': '',
-      'name': ''}
+    if (this.pageEvent) {
+      return {
+        'limit': this.pageEvent.pageSize,
+        'page': (this.pageEvent.pageIndex * this.pageEvent.pageSize),
+        'technologies': '',
+        'team': '',
+        'description': '',
+        'name': ''}
+    } else {
+      return {
+        'limit': 5,
+        'page': 0,
+        'technologies': '',
+        'team': '',
+        'description': '',
+        'name': ''};
+    }
+
   }
 }

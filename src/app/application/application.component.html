@@ -25,7 +25,10 @@
             <div class="element-detail"
                  [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
               <div *ngFor="let techno of element.technologies.split(',')">
-                <span>{{techno}} </span>
+                {{techno}}
+              </div>
+              <div>
+                <button mat-raised-button color="primary" (click)="delete(element)">DELETE</button>
               </div>
             </div>
           </td>
