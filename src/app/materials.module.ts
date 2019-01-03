@@ -3,7 +3,7 @@ import {
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule, MatChipsModule, MatDialogModule, MatFormFieldModule,
-  MatIconModule, MatInputModule, MatMenuModule, MatSortModule,
+  MatIconModule, MatInputModule, MatMenuModule, MatPaginatorModule, MatSortModule,
   MatTableModule,
   MatToolbarModule, MatTooltipModule
 } from '@angular/material';
@@ -26,6 +26,7 @@ import {ToastrModule} from "ngx-toastr";
     MatDialogModule,
     MatChipsModule,
     MatAutocompleteModule,
+    MatPaginatorModule,
   ],
   exports: [
     MatButtonModule,
@@ -42,6 +43,7 @@ import {ToastrModule} from "ngx-toastr";
     MatDialogModule,
     MatChipsModule,
     MatAutocompleteModule,
+    MatPaginatorModule,
   ],
 })
 export class MaterialsModule { }
