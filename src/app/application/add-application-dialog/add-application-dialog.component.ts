@@ -1,5 +1,11 @@
-import {Component, ElementRef, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
-import {MatAutocomplete, MatAutocompleteSelectedEvent, MatChipInputEvent, MatDialogRef} from "@angular/material";
+import {Component, ElementRef, Inject, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
+import {
+  MAT_DIALOG_DATA,
+  MatAutocomplete,
+  MatAutocompleteSelectedEvent,
+  MatChipInputEvent,
+  MatDialogRef
+} from "@angular/material";
 import {Application} from "../../models/application.model";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
@@ -28,14 +34,16 @@ export class AddApplicationDialogComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AddApplicationDialogComponent>,
-    // @Inject(MAT_DIALOG_DATA) public data: Application,
-  ) {  }
+    @Inject(MAT_DIALOG_DATA) public data: { application, editing, technos },
+  ) {
+  }
 
   ngOnInit(): void {
+    this.initTechnos();
     this.applicationForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(2),]],
-      team: ['', [Validators.required, Validators.minLength(2),]],
-      description: ['', [Validators.required, Validators.minLength(2),]],
+      name: [this.data.application.name, [Validators.required, Validators.minLength(2),]],
+      team: [this.data.application.team, [Validators.required, Validators.minLength(2),]],
+      description: [this.data.application.description, [Validators.required, Validators.minLength(2),]],
       techno: ['', [Validators.required,]],
     });
   }
@@ -52,29 +60,18 @@ export class AddApplicationDialogComponent implements OnInit {
     return this.applicationForm.get('description');
   }
 
-
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  arrayToString(array: string[]): string{
-    let result = '';
-    let flag = false;
-    for( let element of array) {
-      if (flag) {
-        result += ',' + element;
-      } else {
-        result += element;
-        flag = true;
-      }
-    }
-    return result;
-  }
-
   onSubmit(): void {
-    const techno = this.arrayToString(this.technologies);
-    this.dialogRef.close(new Application(this.name.value, techno,
-      this.team.value, this.description.value));
+    let application = new Application(
+      this.name.value,
+      this.getTechnoString(),
+      this.team.value,
+      this.description.value);
+    this.data.editing ? application.id = this.data.application.id : null;
+    this.dialogRef.close(application);
   }
 
   add(event: MatChipInputEvent): void {
@@ -115,7 +112,23 @@ export class AddApplicationDialogComponent implements OnInit {
     this.technoCtrl.setValue(null);
   }
 
+  private initTechnos(): void {
+    for (let techno of this.data.technos) {
+      this.technologies.push(techno);
+    }
+    this.updateListTechno();
+  }
+
   private updateListTechno(): void {
     this.filteredTechnologies = this.defaultTechnologies.filter(techno => !this.technologies.includes(techno));
+  }
+
+  private getTechnoString(): string {
+    const technos = this.technologies;
+    let technoString = '';
+    for (let techno of technos) {
+      technoString += techno + ',';
+    }
+    return technoString;
   }
 }

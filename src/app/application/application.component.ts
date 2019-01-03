@@ -61,7 +61,22 @@ export class ApplicationComponent implements OnInit {
     const dialogRef = this.dialog.open(AddApplicationDialogComponent, {
       width: '80vw',
       height: '70vh',
-      data: {application: new Application()}
+      data: {application: new Application(), editing: false, technos: []}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.applicationService.create(result, this.makeParams());
+      }
+    });
+  }
+
+  // Open dialog for update app in param
+  update(application: Application): void {
+    const technos = application.technologies.split(',');
+    const dialogRef = this.dialog.open(AddApplicationDialogComponent, {
+      width: '80vw',
+      height: '70vh',
+      data: {application: application, editing: true, technos: technos}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -96,7 +111,8 @@ export class ApplicationComponent implements OnInit {
         'technologies': '',
         'team': '',
         'description': '',
-        'name': ''}
+        'name': ''
+      }
     } else {
       return {
         'limit': 5,
@@ -104,7 +120,8 @@ export class ApplicationComponent implements OnInit {
         'technologies': '',
         'team': '',
         'description': '',
-        'name': ''};
+        'name': ''
+      };
     }
 
   }
