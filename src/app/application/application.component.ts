@@ -2,9 +2,11 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ApplicationService} from "../services/application.service";
 import {Application} from "../models/application.model";
 import {animate, state, style, transition, trigger} from "@angular/animations";
-import {MatDialog, MatSort, MatTableDataSource, PageEvent} from "@angular/material";
+import {MatBottomSheet, MatDialog, MatSort, MatTableDataSource, PageEvent} from "@angular/material";
 import {AddApplicationDialogComponent} from "./add-application-dialog/add-application-dialog.component";
 import {AppResult} from "../models/appResult.model";
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {BottomSheetComponent} from "../bottom-sheet/bottom-sheet.component";
 
 @Component({
   selector: 'app-application',
@@ -19,6 +21,8 @@ import {AppResult} from "../models/appResult.model";
   ],
 })
 export class ApplicationComponent implements OnInit {
+
+  public filterForm: FormGroup;
 
   public applications: AppResult;
   public displayedColumns: string[] = ['name', 'team', 'description'];
@@ -35,7 +39,10 @@ export class ApplicationComponent implements OnInit {
   pageEvent: PageEvent;
 
   constructor(public applicationService: ApplicationService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              private bottomSheet: MatBottomSheet,
+              private formBuilder: FormBuilder,
+  ) {
   }
 
   ngOnInit() {
@@ -45,15 +52,28 @@ export class ApplicationComponent implements OnInit {
       this.dataSources.sort = this.sort;
       this.loading = false;
     });
+    this.filterForm = this.formBuilder.group({
+      nameFilter: ['', []],
+      teamFilter: ['', []],
+      descriptionFilter: ['', []],
+      technologieFilter: ['', []],
+    });
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSources = this.applications.results.filter(application => {
-        return application.name.toLowerCase().includes(filterValue.toLowerCase())
-          || application.description.toLowerCase().includes(filterValue.toLowerCase())
-          || application.team.toLowerCase().includes(filterValue.toLowerCase())
-      }
-    )
+  get nameFilter() {
+    return this.filterForm.get('nameFilter');
+  }
+
+  get teamFilter() {
+    return this.filterForm.get('teamFilter');
+  }
+
+  get descriptionFilter() {
+    return this.filterForm.get('descriptionFilter');
+  }
+
+  get technologieFilter() {
+    return this.filterForm.get('technologieFilter');
   }
 
   // Open Dialog for add new App
@@ -81,14 +101,21 @@ export class ApplicationComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.applicationService.create(result, this.makeParams());
+        this.applicationService.update(result, this.makeParams());
       }
     });
   }
 
   // Delete app
   public delete(application: Application) {
-    this.applicationService.delete(application, this.makeParams());
+    let sheetRef =  this.bottomSheet.open(BottomSheetComponent, {
+      data: application
+    });
+    sheetRef.afterDismissed().subscribe( data => {
+      if(data && data.message=='delete') {
+        this.applicationService.delete(application, this.makeParams());
+      }
+    });
   }
 
   // Save params and refresh
@@ -108,19 +135,19 @@ export class ApplicationComponent implements OnInit {
       return {
         'limit': this.pageEvent.pageSize,
         'page': (this.pageEvent.pageIndex * this.pageEvent.pageSize),
-        'technologies': '',
-        'team': '',
-        'description': '',
-        'name': ''
+        'technologies': this.technologieFilter.value,
+        'team': this.teamFilter.value,
+        'description': this.descriptionFilter.value,
+        'name': this.nameFilter.value
       }
     } else {
       return {
         'limit': 5,
         'page': 0,
-        'technologies': '',
-        'team': '',
-        'description': '',
-        'name': ''
+        'technologies': this.technologieFilter.value,
+        'team': this.teamFilter.value,
+        'description': this.descriptionFilter.value,
+        'name': this.nameFilter.value
       };
     }
 

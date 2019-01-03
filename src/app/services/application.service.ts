@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Application} from "../models/application.model";
 import {BehaviorSubject, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import { environment } from '../../environments/environment';
+import {environment} from '../../environments/environment';
 import {ToastrService} from "ngx-toastr";
 import {AppResult} from "../models/appResult.model";
 import {Params} from "@angular/router";
@@ -21,7 +21,7 @@ export class ApplicationService {
   };
 
   constructor(private http: HttpClient, private toastr: ToastrService) {
-    this.dataStore = { applications: {} };
+    this.dataStore = {applications: {}};
     this._applications = <BehaviorSubject<AppResult>>new BehaviorSubject({});
     this.applications = this._applications.asObservable();
     this.loadAll();
@@ -54,10 +54,18 @@ export class ApplicationService {
 
   // Delete the app in param
   delete(application: Application, paramsRefresh: {}) {
-    this.http.delete(`${environment.apiBaseUrl}/apps/${application.id}`).subscribe( data => {
+    this.http.delete(`${environment.apiBaseUrl}/apps/${application.id}`).subscribe(data => {
       this.toastr.success(`${application.name} was deleted`, 'Success');
       this.refreshApps(paramsRefresh);
-    }, error => this.toastr.error(error, 'Failed to create the application'));
+    }, error => this.toastr.error(error, 'Failed to delete the application'));
+  }
+
+  // Update the app in param
+  update(application: Application, paramsRefresh: {}) {
+    this.http.put(`${environment.apiBaseUrl}/apps/${application.id}`, application).subscribe(data => {
+      this.toastr.success(`${application.name} was updated`, 'Success');
+      this.refreshApps(paramsRefresh);
+    }, error => this.toastr.error(error, 'Failed to update the application'));
   }
 
 

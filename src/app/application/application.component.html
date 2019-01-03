@@ -3,11 +3,30 @@
 </div>
 <div class="container">
   <div class="filter-area">
-    <mat-card>
-      <mat-form-field>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    <!--<mat-form-field>-->
+    <!--<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">-->
+    <!--</mat-form-field>-->
+    <form [formGroup]="filterForm" (ngSubmit)="refreshApp()">
+      <button mat-icon-button class="search-button" color="primary" type="submit">
+        <mat-icon>search</mat-icon>
+      </button>
+      <mat-form-field appearance="outline">
+        <mat-label>Name Filter</mat-label>
+        <input matInput type="text" formControlName="nameFilter">
       </mat-form-field>
-    </mat-card>
+      <mat-form-field appearance="outline">
+        <mat-label>Team Filter</mat-label>
+        <input matInput type="text" formControlName="teamFilter">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Description Filter</mat-label>
+        <input matInput type="text" formControlName="descriptionFilter">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Technologie Filter</mat-label>
+        <input matInput type="text" formControlName="technologieFilter">
+      </mat-form-field>
+    </form>
   </div>
   <div class="table-area">
     <div class="table-container">
@@ -22,21 +41,27 @@
         <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
         <ng-container matColumnDef="expandedDetail">
           <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
-            <div class="element-detail"
-                 [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-              <div *ngFor="let techno of element.technologies.split(',')">
-                {{techno}}
+            <div class="element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+              <div class="techno-detail">
+                <h3>Technologies</h3>
+                <mat-chip-list class="techno-list">
+                  <mat-chip *ngFor="let techno of element.technologies.split(',')" color="primary" selected>
+                    {{techno}}
+                  </mat-chip>
+                </mat-chip-list>
               </div>
-              <div>
-                <button mat-raised-button color="primary" (click)="delete(element)">DELETE</button>
-              </div>
-              <div>
-                <button mat-raised-button color="primary" (click)="update(element)">UPDATE</button>
+              <div class="action-detail">
+                <button mat-raised-button class="update-button" (click)="update(element)">
+                  <mat-icon>edit</mat-icon> Edit
+                </button>
+                <button mat-raised-button class="delete-button" (click)="delete(element)">
+                  <mat-icon>delete</mat-icon> Delete
+                </button>
               </div>
             </div>
           </td>
         </ng-container>
-
+        
         <tr mat-row *matRowDef="let element; columns: displayedColumns;"
             class="element-row"
             [class.expanded-row]="expandedElement === element"
@@ -48,12 +73,14 @@
     </div>
   </div>
   <div class="actions-area">
-      <button mat-raised-button color="primary" (click)="add()">ADD APPLICATION</button>
-      <mat-paginator [length]="applications.total"
-                     [pageSize]="applications.pageTotal"
-                     [pageSizeOptions]="pageSizeOptions"
-                     (page)="paginatorEvent($event)"
-                     *ngIf="!loading">
-      </mat-paginator>
+    <button mat-raised-button color="primary" (click)="add()">
+      <mat-icon>add_circle_outline</mat-icon> Add application
+    </button>
+    <mat-paginator [length]="applications.total"
+                   [pageSize]="applications.pageTotal"
+                   [pageSizeOptions]="pageSizeOptions"
+                   (page)="paginatorEvent($event)"
+                   *ngIf="!loading">
+    </mat-paginator>
   </div>
 </div>

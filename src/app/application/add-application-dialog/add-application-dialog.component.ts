@@ -125,9 +125,15 @@ export class AddApplicationDialogComponent implements OnInit {
 
   private getTechnoString(): string {
     const technos = this.technologies;
+    let flag = false;
     let technoString = '';
     for (let techno of technos) {
-      technoString += techno + ',';
+      if (flag) {
+        technoString += ',' + techno;
+      } else {
+        technoString += techno;
+        flag = true;
+      }
     }
     return technoString;
   }

@@ -1,14 +1,23 @@
 import {
   MatAutocompleteModule,
+  MatBottomSheetModule,
   MatButtonModule,
   MatCardModule,
-  MatCheckboxModule, MatChipsModule, MatDialogModule, MatFormFieldModule,
-  MatIconModule, MatInputModule, MatMenuModule, MatPaginatorModule, MatSortModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatDialogModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatPaginatorModule,
+  MatSortModule,
   MatTableModule,
-  MatToolbarModule, MatTooltipModule
+  MatToolbarModule,
+  MatTooltipModule
 } from '@angular/material';
 import {NgModule} from "@angular/core";
-import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
   imports: [
@@ -27,6 +36,8 @@ import {ToastrModule} from "ngx-toastr";
     MatChipsModule,
     MatAutocompleteModule,
     MatPaginatorModule,
+    MatListModule,
+    MatBottomSheetModule,
   ],
   exports: [
     MatButtonModule,
@@ -44,6 +55,9 @@ import {ToastrModule} from "ngx-toastr";
     MatChipsModule,
     MatAutocompleteModule,
     MatPaginatorModule,
+    MatListModule,
+    MatBottomSheetModule,
   ],
 })
-export class MaterialsModule { }
+export class MaterialsModule {
+}

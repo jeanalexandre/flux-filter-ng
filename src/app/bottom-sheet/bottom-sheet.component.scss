@@ -1,0 +1,26 @@
+/deep/ .mat-bottom-sheet-container {
+  padding: 0;
+}
+
+.bottom-sheet {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  background-color: #d43d3d;
+  padding: 10px 20px;
+}
+
+.bottom-sheet div {
+  flex: 1;
+  color: white;
+}
+
+button {
+  margin-left: 5px;
+  color: white !important;
+}
+
+button.delete {
+  color: white !important;
+}
