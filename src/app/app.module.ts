@@ -19,6 +19,7 @@ import {ToastrModule} from "ngx-toastr";
 import {NgxGraphModule} from "@swimlane/ngx-graph";
 import {NgxChartsModule} from "@swimlane/ngx-charts";
 import {GraphComponent} from "./graph/graph.component";
+import {BottomSheetComponent} from "./bottom-sheet/bottom-sheet.component";
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {GraphComponent} from "./graph/graph.component";
     LoginComponent,
     RegisterComponent,
     GraphComponent,
+    BottomSheetComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +56,8 @@ import {GraphComponent} from "./graph/graph.component";
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
   ],
   entryComponents: [
-    AddApplicationDialogComponent
+    AddApplicationDialogComponent,
+    BottomSheetComponent,
   ],
   bootstrap: [AppComponent],
 })
