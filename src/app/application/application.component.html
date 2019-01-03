@@ -3,11 +3,30 @@
 </div>
 <div class="container">
   <div class="filter-area">
-    <mat-card>
-      <mat-form-field>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-      </mat-form-field>
-    </mat-card>
+      <!--<mat-form-field>-->
+      <!--<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">-->
+      <!--</mat-form-field>-->
+      <form [formGroup]="filterForm" (ngSubmit)="refreshApp()">
+        <button mat-icon-button class="search-button" color="primary" type="submit">
+          <mat-icon>search</mat-icon>
+        </button>
+        <mat-form-field appearance="outline">
+          <mat-label>Name Filter</mat-label>
+          <input matInput type="text" formControlName="nameFilter">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Team Filter</mat-label>
+          <input matInput type="text" formControlName="teamFilter">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Description Filter</mat-label>
+          <input matInput type="text" formControlName="descriptionFilter">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Technologie Filter</mat-label>
+          <input matInput type="text" formControlName="technologieFilter">
+        </mat-form-field>
+      </form>
   </div>
   <div class="table-area">
     <div class="table-container">
@@ -48,12 +67,12 @@
     </div>
   </div>
   <div class="actions-area">
-      <button mat-raised-button color="primary" (click)="add()">ADD APPLICATION</button>
-      <mat-paginator [length]="applications.total"
-                     [pageSize]="applications.pageTotal"
-                     [pageSizeOptions]="pageSizeOptions"
-                     (page)="paginatorEvent($event)"
-                     *ngIf="!loading">
-      </mat-paginator>
+    <button mat-raised-button color="primary" (click)="add()">ADD APPLICATION</button>
+    <mat-paginator [length]="applications.total"
+                   [pageSize]="applications.pageTotal"
+                   [pageSizeOptions]="pageSizeOptions"
+                   (page)="paginatorEvent($event)"
+                   *ngIf="!loading">
+    </mat-paginator>
   </div>
 </div>
