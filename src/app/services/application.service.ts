@@ -67,6 +67,4 @@ export class ApplicationService {
       this.refreshApps(paramsRefresh);
     }, error => this.toastr.error(error, 'Failed to update the application'));
   }
-
-
 }
