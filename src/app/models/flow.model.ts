@@ -1,4 +1,5 @@
 export class Flow {
+  public id? : number;
   constructor (
     public sourceApp?: string,
     public targetApp?: string,
