@@ -4,11 +4,10 @@ import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {
   MAT_DIALOG_DATA,
   MatAutocomplete,
-  MatAutocompleteSelectedEvent,
+  MatAutocompleteSelectedEvent, MatAutocompleteTrigger,
   MatChipInputEvent,
   MatDialogRef
 } from "@angular/material";
-import {Flow} from "../../models/flow.model";
 import {Application} from "../../models/application.model";
 import {newFlow} from "../../models/newFlow.model";
 
@@ -33,6 +32,7 @@ export class AddFlowDialogComponent implements OnInit {
 
   @ViewChild('technoInput') technoInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
+  @ViewChild(MatAutocompleteTrigger) autocomplete: MatAutocompleteTrigger;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -82,6 +82,17 @@ export class AddFlowDialogComponent implements OnInit {
       this.description.value);
     this.data.editing ? flow.id = this.data.flow.id : null;
     this.dialogRef.close(flow);
+  }
+
+  new(event){
+    if(event.keyCode == 13) {
+      this.autocomplete.closePanel();
+      this.technologies.push(this.technoInput.nativeElement.value);
+      this.technoInput.nativeElement.value = '';
+      this.updateListTechno();
+      this.technoInput.nativeElement.blur();
+      this.technoCtrl.setValue(null);
+    }
   }
 
   add(event: MatChipInputEvent): void {

@@ -19,6 +19,15 @@
   margin: auto;
 }
 
+.loader {
+  height: 90%;
+  width: 80%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .filter-area {
   width: 100%;
   margin-left: auto;

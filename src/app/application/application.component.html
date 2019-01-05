@@ -1,11 +1,11 @@
 <div class="title-area">
   APPLICATIONS
 </div>
-<div class="container">
+<div class="loader" *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</div>
+<div class="container" *ngIf="!loading">
   <div class="filter-area">
-    <!--<mat-form-field>-->
-    <!--<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">-->
-    <!--</mat-form-field>-->
     <form [formGroup]="filterForm" (ngSubmit)="refreshApp()">
       <button mat-icon-button class="search-button" color="primary" type="submit">
         <mat-icon>search</mat-icon>
