@@ -171,6 +171,7 @@ export class ApplicationComponent implements OnInit {
     }
     if (this.advancedFilter) {
       return {
+        'strict': true,
         'limit': limit,
         'page': page,
         'technologies': this.technologieFilter.value,
@@ -183,9 +184,10 @@ export class ApplicationComponent implements OnInit {
       const name = this.nameCheck.value ? value : '';
       const team = this.teamCheck.value ? value : '';
       const techno = this.technologieCheck.value ? value : '';
-      const description = this.descriptionCheck ? value : '';
+      const description = this.descriptionCheck.value ? value : '';
 
       return {
+        'strict': false,
         'limit': limit,
         'page': page,
         'technologies': techno,

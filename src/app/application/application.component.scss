@@ -35,7 +35,9 @@
 }
 
 .filter-area {
-  width: 100%;
+  width: 110%;
+  position: relative;
+  left: -10%;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 2px;
@@ -168,8 +170,22 @@ table {
 }
 
 .table-container {
-  max-height: 50vh;
+  height: 50vh;
   overflow: auto;
+}
+
+.no-data {
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #4054af;
+}
+
+.bad-icon {
+  font-size: 60px;
+  position: relative;
+  top: -20px;
 }
 
 
