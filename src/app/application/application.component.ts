@@ -150,6 +150,5 @@ export class ApplicationComponent implements OnInit {
         'name': this.nameFilter.value
       };
     }
-
   }
 }

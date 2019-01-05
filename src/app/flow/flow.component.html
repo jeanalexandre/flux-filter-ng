@@ -1,0 +1,98 @@
+<div class="title-area">
+  FLOWS
+</div>
+<div class="container">
+  <div class="filter-area">
+    <!--<mat-form-field>-->
+    <!--<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">-->
+    <!--</mat-form-field>-->
+    <form [formGroup]="filterForm" (ngSubmit)="refreshFlow()">
+      <button mat-icon-button class="search-button" color="primary" type="submit">
+        <mat-icon>search</mat-icon>
+      </button>
+      <mat-form-field appearance="outline">
+        <mat-label>Name Filter</mat-label>
+        <input matInput type="text" formControlName="nameFilter">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Description Filter</mat-label>
+        <input matInput type="text" formControlName="descriptionFilter">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Technologie Filter</mat-label>
+        <input matInput type="text" formControlName="technologieFilter">
+      </mat-form-field><mat-form-field appearance="outline">
+        <mat-label>Source Filter</mat-label>
+        <input matInput type="text" formControlName="sourceApp">
+      </mat-form-field><mat-form-field appearance="outline">
+        <mat-label>Target Filter</mat-label>
+        <input matInput type="text" formControlName="targetApp">
+      </mat-form-field>
+    </form>
+  </div>
+  <div class="table-area">
+    <div class="table-container">
+      <table mat-table
+             [dataSource]="dataSources" matSort multiTemplateDataRows
+             class="mat-elevation-z8">
+        <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column | uppercase}}</th>
+          <td mat-cell *matCellDef="let element"> {{element[column]}}</td>
+        </ng-container>
+
+        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+            <div class="element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+              <div class="details">
+                <div class="app-details">
+                <span>{{element.sourceApp.name}}</span>
+                <mat-icon color="primary">label_important</mat-icon>
+                <span>{{element.targetApp.name}}</span>
+              </div>
+                <div>
+                  <h3>Technologies</h3>
+                  <mat-chip-list class="techno-list">
+                    <mat-chip *ngFor="let techno of element.technologies.split(',')" color="primary" selected>
+                      {{techno}}
+                    </mat-chip>
+                  </mat-chip-list>
+                </div>
+              </div>
+              <div class="action-detail">
+                <button mat-raised-button class="update-button" (click)="update(element)">
+                  <mat-icon>edit</mat-icon>
+                  Edit
+                </button>
+                <button mat-raised-button class="delete-button" (click)="delete(element)">
+                  <mat-icon>delete</mat-icon>
+                  Delete
+                </button>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+            class="element-row"
+            [class.expanded-row]="expandedElement === element"
+            (click)="expandedElement = element">
+        </tr>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+      </table>
+    </div>
+  </div>
+  <div class="actions-area" *ngIf="!loading">
+    <button mat-raised-button color="primary" (click)="add()">
+      <mat-icon>add_circle_outline</mat-icon>
+      Add flow
+    </button>
+    <mat-paginator [length]="flows.total"
+                   [pageSize]="flows.pageTotal"
+                   [pageSizeOptions]="pageSizeOptions"
+                   (page)="paginatorEvent($event)"
+                   *ngIf="!loading">
+    </mat-paginator>
+  </div>
+</div>

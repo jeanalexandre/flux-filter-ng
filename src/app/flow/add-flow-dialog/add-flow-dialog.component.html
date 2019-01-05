@@ -1,0 +1,92 @@
+<mat-toolbar mat-dialog-title color="primary">
+  <mat-toolbar-row>
+    <h1>CREATE A NEW FLOW</h1>
+    <span class="spacer"></span>
+    <button color="primay" mat-icon-button (click)="onNoClick()">
+      <mat-icon class="mat-18">close</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div mat-dialog-content>
+  <form class="form-area" [formGroup]="flowForm" (ngSubmit)="onSubmit()">
+    <div class="form-content">
+      <div class="quart-panel">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Source app</mat-label>
+          <mat-select formControlName="sourceApp" required>
+            <mat-option *ngFor="let app of applications" [value]="app.id">
+              {{app.name}}
+            </mat-option>
+          </mat-select>
+          <mat-hint align="end">Source application of flow</mat-hint>
+          <mat-error *ngIf="name.invalid">Source application is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="intercaler">
+        <mat-icon color="primary">label_important</mat-icon>
+      </div>
+      <div class="half-panel">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Name</mat-label>
+          <input matInput type="text" formControlName="name" required>
+          <mat-hint align="end">Name of flow</mat-hint>
+          <mat-error *ngIf="name.invalid">Name is required</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Description</mat-label>
+          <input matInput type="text" formControlName="description" required>
+          <mat-hint align="end">Description of flow</mat-hint>
+          <mat-error *ngIf="description.invalid">Description is required</mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Technologies</mat-label>
+          <mat-chip-list #chipList>
+            <mat-chip
+              *ngFor="let techno of technologies"
+              [selectable]="selectable"
+              [removable]="removable"
+              (removed)="remove(techno)">
+              {{techno}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input
+              #technoInput
+              [formControl]="technoCtrl"
+              formControlName="techno"
+              [matAutocomplete]="auto"
+              [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="addOnBlur"
+              (matChipInputTokenEnd)="add($event)">
+          </mat-chip-list>
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-option *ngFor="let techno of filteredTechnologies" [value]="techno">
+              {{techno}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <div class="intercaler">
+        <mat-icon color="primary">label_important</mat-icon>
+      </div>
+      <div class="quart-panel">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Target app</mat-label>
+          <mat-select formControlName="targetApp" required>
+            <mat-option *ngFor="let app of applications" [value]="app.id">
+              {{app.name}}
+            </mat-option>
+          </mat-select>
+          <mat-hint align="end">Target application of flow</mat-hint>
+          <mat-error *ngIf="name.invalid">Target application is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="dialog-actions-area">
+      <button class="submit-button" mat-raised-button color="primary" type="submit"
+              [disabled]="name.invalid || description.invalid">Validate
+      </button>
+    </div>
+  </form>
+</div>
+

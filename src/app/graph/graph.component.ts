@@ -28,11 +28,11 @@ export class GraphComponent implements OnInit {
 
   ngOnInit() {
     this.flowService.flows.subscribe(flows => {
-      this.flows = flows;
+      // this.flows = flows;
       this.initgraph();
     });
     this.applicationService.applications.subscribe(applications => {
-      this.applications = applications;
+      // this.applications = applications;
       this.initgraph();
     });
   }
@@ -57,7 +57,7 @@ export class GraphComponent implements OnInit {
       }
       this.hierarchialGraph.nodes = nodes;
       this.hierarchialGraph.links = links;
-      this.loading = false;
     }
+    this.loading = false;
   }
 }

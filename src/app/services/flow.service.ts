@@ -6,6 +6,7 @@ import {ToastrService} from "ngx-toastr";
 import {Params} from "@angular/router";
 import {environment} from "../../environments/environment";
 import {Flow} from "../models/flow.model";
+import {newFlow} from "../models/newFlow.model";
 
 @Injectable({
   providedIn: 'root'
@@ -44,7 +45,7 @@ export class FlowService {
   }
 
   // Save new flow
-  create(flow: Flow, paramsRefresh: {}) {
+  create(flow: newFlow, paramsRefresh: {}) {
     this.http.post(`${environment.apiBaseUrl}/flows`, flow).subscribe(data => {
       this.toastr.success(`${flow.name} was created`, 'Success');
       this.refreshFlows(paramsRefresh);
@@ -60,7 +61,7 @@ export class FlowService {
   }
 
   // Update the flow in param
-  update(flow: Flow, paramsRefresh: {}) {
+  update(flow: newFlow, paramsRefresh: {}) {
     this.http.put(`${environment.apiBaseUrl}/flows/${flow.id}`, flow).subscribe(data => {
       this.toastr.success(`${flow.name} was updated`, 'Success');
       this.refreshFlows(paramsRefresh);

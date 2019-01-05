@@ -6,6 +6,7 @@ import {LoginComponent} from "./login/login.component";
 import {AuthGuard} from "./_guards/auth.guard";
 import {RegisterComponent} from "./register/register.component";
 import {GraphComponent} from "./graph/graph.component";
+import {FlowComponent} from "./flow/flow.component";
 
 const routes: Routes = [
   {
@@ -16,6 +17,11 @@ const routes: Routes = [
   {
     path: 'application',
     component: ApplicationComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'flow',
+    component: FlowComponent,
     canActivate: [AuthGuard]
   },
   {

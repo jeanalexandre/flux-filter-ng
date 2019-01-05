@@ -15,24 +15,42 @@ export class ApplicationService {
 
   // ReactiveX object for datas
   applications: Observable<AppResult>;
+  allApplications: Observable<Application[]>;
   private _applications: BehaviorSubject<AppResult>;
+  private _allApplications: BehaviorSubject<Application[]>;
   private dataStore: {
     applications: AppResult;
+  };
+  private allAppStore: {
+    allApplications: Application[];
   };
 
   constructor(private http: HttpClient, private toastr: ToastrService) {
     this.dataStore = {applications: {}};
+    this.allAppStore = {allApplications: []};
     this._applications = <BehaviorSubject<AppResult>>new BehaviorSubject({});
     this.applications = this._applications.asObservable();
+    this._allApplications = <BehaviorSubject<Application[]>>new BehaviorSubject({});
+    this.allApplications = this._allApplications.asObservable();
+    this.initApp();
     this.loadAll();
   }
 
   // First load datas with 5 element per page
-  loadAll() {
+  initApp() {
     const params: Params = {'limit': 5, 'page': 0};
     this.http.get(`${environment.apiBaseUrl}/apps`, {params}).subscribe((data: AppResult) => {
       this.dataStore.applications = data;
       this._applications.next(Object.assign({}, this.dataStore).applications);
+    }, error => this.toastr.error(error, 'Failed to load apps'));
+  }
+
+  // Get all apps
+  loadAll() {
+    const params: Params = {'limit': 0, 'page': 0};
+    this.http.get(`${environment.apiBaseUrl}/apps`, {params}).subscribe((data: AppResult) => {
+      this.allAppStore.allApplications = data.results;
+      this._allApplications.next(Object.assign({}, this.allAppStore).allApplications);
     }, error => this.toastr.error(error, 'Failed to load apps'));
   }
 
@@ -42,6 +60,7 @@ export class ApplicationService {
       this.dataStore.applications = data;
       this._applications.next(Object.assign({}, this.dataStore).applications);
     }, error => this.toastr.error(error, 'Failed to load apps'));
+    this.loadAll();
   }
 
   // Save new app
