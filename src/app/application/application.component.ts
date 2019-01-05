@@ -160,6 +160,14 @@ export class ApplicationComponent implements OnInit {
 
   // Make params object for refresh
   private makeParams() {
+
+    interface Params {
+      name?: string,
+      team?: string,
+      description?: string,
+      technologies?: string
+    }
+
     let limit;
     let page;
     if (this.pageEvent) {
@@ -171,6 +179,7 @@ export class ApplicationComponent implements OnInit {
     }
     if (this.advancedFilter) {
       return {
+        'strict': 1,
         'limit': limit,
         'page': page,
         'technologies': this.technologieFilter.value,
@@ -180,19 +189,18 @@ export class ApplicationComponent implements OnInit {
       }
     } else {
       const value = this.valueFilter.value;
-      const name = this.nameCheck.value ? value : '';
-      const team = this.teamCheck.value ? value : '';
-      const techno = this.technologieCheck.value ? value : '';
-      const description = this.descriptionCheck ? value : '';
 
-      return {
-        'limit': limit,
-        'page': page,
-        'technologies': techno,
-        'team': team,
-        'description': description,
-        'name': name
-      }
+      let params = new class implements Params {
+        description?: string;
+        name?: string;
+        team?: string;
+        technologies?: string;
+      };
+      this.nameCheck.value ? params.name = value : '';
+      this.teamCheck.value ? params.team = value : '';
+      this.technologieCheck.value ? params.technologies = value : '';
+      this.descriptionCheck.value ? params.description = value : '';
+      return params;
     }
   }
 }

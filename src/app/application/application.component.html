@@ -23,7 +23,7 @@
         <div class="check-area">
           <span>Apply filter to :</span>
           <mat-checkbox color="primary" formControlName="nameCheck">Name</mat-checkbox>
-          <mat-checkbox color="primary" formControlName="nameCheck">Team</mat-checkbox>
+          <mat-checkbox color="primary" formControlName="teamCheck">Team</mat-checkbox>
           <mat-checkbox color="primary" formControlName="descriptionCheck">Description</mat-checkbox>
           <mat-checkbox color="primary" formControlName="technologieCheck">Technologie</mat-checkbox>
         </div>
@@ -54,7 +54,8 @@
     </form>
   </div>
   <div class="table-area">
-    <div class="table-container">
+    <div *ngIf="applications.results && !applications.results.length" class="no-data"><h1>No datas to show </h1> <mat-icon class="bad-icon">sentiment_very_dissatisfied</mat-icon></div>
+    <div class="table-container" *ngIf="applications.results && applications.results.length">
       <table mat-table
              [dataSource]="dataSources" matSort multiTemplateDataRows
              class="mat-elevation-z8">
