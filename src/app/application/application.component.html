@@ -1,3 +1,8 @@
+<div class="filter-toogle">
+  <mat-slide-toggle [(ngModel)]="advancedFilter" color="primary">
+    Advanced filter
+  </mat-slide-toggle>
+</div>
 <div class="title-area">
   APPLICATIONS
 </div>
@@ -5,7 +10,27 @@
   <mat-spinner></mat-spinner>
 </div>
 <div class="container" *ngIf="!loading">
-  <div class="filter-area">
+  <div  *ngIf="!advancedFilter">
+    <form [formGroup]="golbalFilterForm" class="filter-area" (ngSubmit)="refreshApp()">
+      <button mat-icon-button class="search-button" color="primary" type="submit">
+        <mat-icon>search</mat-icon>
+      </button>
+      <div class="form-part">
+        <mat-form-field class="input-area" appearance="outline">
+          <mat-label>Filtre</mat-label>
+          <input matInput type="text" formControlName="valueFilter">
+        </mat-form-field>
+        <div class="check-area">
+          <span>Apply filter to :</span>
+          <mat-checkbox color="primary" formControlName="nameCheck">Name</mat-checkbox>
+          <mat-checkbox color="primary" formControlName="nameCheck">Team</mat-checkbox>
+          <mat-checkbox color="primary" formControlName="descriptionCheck">Description</mat-checkbox>
+          <mat-checkbox color="primary" formControlName="technologieCheck">Technologie</mat-checkbox>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="advanced-filter-area" *ngIf="advancedFilter">
     <form [formGroup]="filterForm" (ngSubmit)="refreshApp()">
       <button mat-icon-button class="search-button" color="primary" type="submit">
         <mat-icon>search</mat-icon>
@@ -52,16 +77,18 @@
               </div>
               <div class="action-detail">
                 <button mat-raised-button class="update-button" (click)="update(element)">
-                  <mat-icon>edit</mat-icon> Edit
+                  <mat-icon>edit</mat-icon>
+                  Edit
                 </button>
                 <button mat-raised-button class="delete-button" (click)="delete(element)">
-                  <mat-icon>delete</mat-icon> Delete
+                  <mat-icon>delete</mat-icon>
+                  Delete
                 </button>
               </div>
             </div>
           </td>
         </ng-container>
-        
+
         <tr mat-row *matRowDef="let element; columns: displayedColumns;"
             class="element-row"
             [class.expanded-row]="expandedElement === element"
@@ -74,7 +101,8 @@
   </div>
   <div class="actions-area">
     <button mat-raised-button color="primary" (click)="add()">
-      <mat-icon>add_circle_outline</mat-icon> Add application
+      <mat-icon>add_circle_outline</mat-icon>
+      Add application
     </button>
     <mat-paginator [length]="applications.total"
                    [pageSize]="applications.pageTotal"

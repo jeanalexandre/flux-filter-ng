@@ -23,12 +23,14 @@ import {BottomSheetComponent} from "../bottom-sheet/bottom-sheet.component";
 export class ApplicationComponent implements OnInit {
 
   public filterForm: FormGroup;
+  public golbalFilterForm: FormGroup;
 
   public applications: AppResult;
   public displayedColumns: string[] = ['name', 'team', 'description'];
   public expandedElement: Application;
   public dataSources;
   public loading = true;
+  public advancedFilter = false;
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -58,6 +60,13 @@ export class ApplicationComponent implements OnInit {
       descriptionFilter: ['', []],
       technologieFilter: ['', []],
     });
+    this.golbalFilterForm = this.formBuilder.group({
+      valueFilter: ['', []],
+      nameCheck: [true, []],
+      teamCheck: [true, []],
+      descriptionCheck: [true, []],
+      technologieCheck: [true, []],
+    });
   }
 
   get nameFilter() {
@@ -74,6 +83,26 @@ export class ApplicationComponent implements OnInit {
 
   get technologieFilter() {
     return this.filterForm.get('technologieFilter');
+  }
+
+  get valueFilter() {
+    return this.golbalFilterForm.get('valueFilter');
+  }
+
+  get nameCheck() {
+    return this.golbalFilterForm.get('nameCheck');
+  }
+
+  get teamCheck() {
+    return this.golbalFilterForm.get('teamCheck');
+  }
+
+  get descriptionCheck() {
+    return this.golbalFilterForm.get('descriptionCheck');
+  }
+
+  get technologieCheck() {
+    return this.golbalFilterForm.get('technologieCheck');
   }
 
   // Open Dialog for add new App
@@ -108,11 +137,11 @@ export class ApplicationComponent implements OnInit {
 
   // Delete app
   public delete(application: Application) {
-    let sheetRef =  this.bottomSheet.open(BottomSheetComponent, {
+    let sheetRef = this.bottomSheet.open(BottomSheetComponent, {
       data: application
     });
-    sheetRef.afterDismissed().subscribe( data => {
-      if(data && data.message=='delete') {
+    sheetRef.afterDismissed().subscribe(data => {
+      if (data && data.message == 'delete') {
         this.applicationService.delete(application, this.makeParams());
       }
     });
@@ -131,24 +160,39 @@ export class ApplicationComponent implements OnInit {
 
   // Make params object for refresh
   private makeParams() {
+    let limit;
+    let page;
     if (this.pageEvent) {
+      limit = this.pageEvent.pageSize;
+      page = this.pageEvent.pageIndex * this.pageEvent.pageSize;
+    } else {
+      limit = 5;
+      page = 0;
+    }
+    if (this.advancedFilter) {
       return {
-        'limit': this.pageEvent.pageSize,
-        'page': (this.pageEvent.pageIndex * this.pageEvent.pageSize),
+        'limit': limit,
+        'page': page,
         'technologies': this.technologieFilter.value,
         'team': this.teamFilter.value,
         'description': this.descriptionFilter.value,
         'name': this.nameFilter.value
       }
     } else {
+      const value = this.valueFilter.value;
+      const name = this.nameCheck.value ? value : '';
+      const team = this.teamCheck.value ? value : '';
+      const techno = this.technologieCheck.value ? value : '';
+      const description = this.descriptionCheck ? value : '';
+
       return {
-        'limit': 5,
-        'page': 0,
-        'technologies': this.technologieFilter.value,
-        'team': this.teamFilter.value,
-        'description': this.descriptionFilter.value,
-        'name': this.nameFilter.value
-      };
+        'limit': limit,
+        'page': page,
+        'technologies': techno,
+        'team': team,
+        'description': description,
+        'name': name
+      }
     }
   }
 }
