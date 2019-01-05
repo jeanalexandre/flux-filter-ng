@@ -2,7 +2,7 @@ import {Component, ElementRef, Inject, OnInit, ViewChild, ViewEncapsulation} fro
 import {
   MAT_DIALOG_DATA,
   MatAutocomplete,
-  MatAutocompleteSelectedEvent,
+  MatAutocompleteSelectedEvent, MatAutocompleteTrigger,
   MatChipInputEvent,
   MatDialogRef
 } from "@angular/material";
@@ -30,6 +30,7 @@ export class AddApplicationDialogComponent implements OnInit {
 
   @ViewChild('technoInput') technoInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
+  @ViewChild(MatAutocompleteTrigger) autocomplete: MatAutocompleteTrigger;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -74,9 +75,19 @@ export class AddApplicationDialogComponent implements OnInit {
     this.dialogRef.close(application);
   }
 
+  new(event){
+    if(event.keyCode == 13) {
+      this.autocomplete.closePanel();
+      this.technologies.push(this.technoInput.nativeElement.value);
+      this.technoInput.nativeElement.value = '';
+      this.updateListTechno();
+      this.technoInput.nativeElement.blur();
+      this.technoCtrl.setValue(null);
+    }
+  }
+
   add(event: MatChipInputEvent): void {
     // Add technology only when MatAutocomplete is not open
-    // To make sure this does not conflict with OptionSelected Event
     if (!this.matAutocomplete.isOpen) {
       const input = event.input;
       const value = event.value;
