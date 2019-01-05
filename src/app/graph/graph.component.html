@@ -1,10 +1,15 @@
-<div class="graph-area" *ngIf="loading">
+<div class="graph-area" *ngIf="loading && !noDatas">
   <mat-spinner></mat-spinner>
 </div>
-<div class="graph-area" *ngIf="!loading && (!flows || !applications)">
+<div class="graph-area" *ngIf="!loading && noDatas">
   <span style="color: black">Pas de données exploitables :(</span>
 </div>
-<div class="graph-area" *ngIf="!loading && flows && flows.results && applications && applications.results">
+<div class="options" *ngIf="!loading && !noDatas && allNodes && allNodes.length > nodesWithLinks.length">
+  <mat-slide-toggle [(ngModel)]="showFlowless" (click)="changeVision()" color="primary">
+    Flowless Applications
+  </mat-slide-toggle>
+</div>
+<div class="graph-area" *ngIf="!loading && !noDatas">
   <ngx-graph
     class="chart-container"
     [links]="hierarchialGraph.links"
