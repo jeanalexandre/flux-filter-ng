@@ -11,7 +11,7 @@ import {
   MatInputModule,
   MatListModule,
   MatMenuModule,
-  MatPaginatorModule, MatProgressSpinnerModule, MatSelectModule,
+  MatPaginatorModule, MatProgressSpinnerModule, MatSelectModule, MatSlideToggleModule,
   MatSortModule,
   MatTableModule,
   MatToolbarModule,
@@ -40,6 +40,7 @@ import {NgModule} from "@angular/core";
     MatBottomSheetModule,
     MatProgressSpinnerModule,
     MatSelectModule,
+    MatSlideToggleModule,
   ],
   exports: [
     MatButtonModule,
@@ -61,6 +62,7 @@ import {NgModule} from "@angular/core";
     MatBottomSheetModule,
     MatProgressSpinnerModule,
     MatSelectModule,
+    MatSlideToggleModule,
   ],
 })
 export class MaterialsModule {

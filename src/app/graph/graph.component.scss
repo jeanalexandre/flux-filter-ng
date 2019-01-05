@@ -1,5 +1,11 @@
 ::ng-deep .ngx-charts { text { fill: #fff !important; } }
 
+.options {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .graph-area {
   width: 100%;
   height: 100%;
