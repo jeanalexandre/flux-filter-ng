@@ -45,7 +45,14 @@ export class FlowService {
 
   // Save new flow
   create(flow: Flow, paramsRefresh: {}) {
-    this.http.post(`${environment.apiBaseUrl}/flows`, flow).subscribe(data => {
+    const newFlow = {
+      'name': flow.name,
+      'description': flow.description,
+      'technologies' : flow.technologies,
+      'targetApp': flow.targetApp,
+      'sourceApp' : flow.sourceApp
+    };
+    this.http.post(`${environment.apiBaseUrl}/flows`, newFlow).subscribe(data => {
       this.toastr.success(`${flow.name} was created`, 'Success');
       this.refreshFlows(paramsRefresh);
     }, error => this.toastr.error(error, 'Failed to create the flux'));
@@ -61,7 +68,15 @@ export class FlowService {
 
   // Update the flow in param
   update(flow: Flow, paramsRefresh: {}) {
-    this.http.put(`${environment.apiBaseUrl}/flows/${flow.id}`, flow).subscribe(data => {
+    const newFlow = {
+      'id': flow.id,
+      'name': flow.name,
+      'description': flow.description,
+      'technologies' : flow.technologies,
+      'targetApp': flow.targetApp,
+      'sourceApp' : flow.sourceApp
+    };
+    this.http.put(`${environment.apiBaseUrl}/flows/${flow.id}`, newFlow).subscribe(data => {
       this.toastr.success(`${flow.name} was updated`, 'Success');
       this.refreshFlows(paramsRefresh);
     }, error => this.toastr.error(error, 'Failed to update the flux'));

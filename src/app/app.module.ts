@@ -20,13 +20,17 @@ import {NgxGraphModule} from "@swimlane/ngx-graph";
 import {NgxChartsModule} from "@swimlane/ngx-charts";
 import {GraphComponent} from "./graph/graph.component";
 import {BottomSheetComponent} from "./bottom-sheet/bottom-sheet.component";
+import {FlowComponent} from "./flow/flow.component";
+import {AddFlowDialogComponent} from "./flow/add-flow-dialog/add-flow-dialog.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     ApplicationComponent,
+    FlowComponent,
     NavigationComponent,
     AddApplicationDialogComponent,
+    AddFlowDialogComponent,
     LoginComponent,
     RegisterComponent,
     GraphComponent,
@@ -57,6 +61,7 @@ import {BottomSheetComponent} from "./bottom-sheet/bottom-sheet.component";
   ],
   entryComponents: [
     AddApplicationDialogComponent,
+    AddFlowDialogComponent,
     BottomSheetComponent,
   ],
   bootstrap: [AppComponent],

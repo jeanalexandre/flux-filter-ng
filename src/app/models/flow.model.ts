@@ -5,7 +5,7 @@ export class Flow {
   constructor (
     public sourceApp?: Application,
     public targetApp?: Application,
-    public technologies?: string[],
+    public technologies?: string,
     public name?: string,
     public description?: string
   ){}
