@@ -1,3 +1,8 @@
+<div class="filter-toogle">
+  <mat-slide-toggle [(ngModel)]="advancedFilter" color="primary">
+    Advanced filter
+  </mat-slide-toggle>
+</div>
 <div class="title-area">
   FLOWS
 </div>
@@ -5,7 +10,28 @@
   <mat-spinner></mat-spinner>
 </div>
 <div class="container" *ngIf="!loading">
-  <div class="filter-area">
+  <div  *ngIf="!advancedFilter">
+    <form [formGroup]="globalFilterForm" class="filter-area" (ngSubmit)="refreshFlow()">
+      <button mat-icon-button class="search-button" color="primary" type="submit">
+        <mat-icon>search</mat-icon>
+      </button>
+      <div class="form-part">
+        <mat-form-field class="input-area" appearance="outline">
+          <mat-label>Filter</mat-label>
+          <input matInput type="text" formControlName="valueFilter">
+        </mat-form-field>
+        <div class="check-area">
+          <span>Apply filter to :</span>
+          <mat-checkbox color="primary" formControlName="nameCheck">Name</mat-checkbox>
+          <mat-checkbox color="primary" formControlName="descriptionCheck">Description</mat-checkbox>
+          <mat-checkbox color="primary" formControlName="technologieCheck">Technologie</mat-checkbox>
+          <mat-checkbox color="primary" formControlName="sourceAppCheck">Source App'</mat-checkbox>
+          <mat-checkbox color="primary" formControlName="targetAppCheck">Target App'</mat-checkbox>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="advanced-filter-area" *ngIf="advancedFilter">
     <form [formGroup]="filterForm" (ngSubmit)="refreshFlow()">
       <button mat-icon-button class="search-button" color="primary" type="submit">
         <mat-icon>search</mat-icon>
@@ -21,17 +47,30 @@
       <mat-form-field appearance="outline">
         <mat-label>Technologie Filter</mat-label>
         <input matInput type="text" formControlName="technologieFilter">
-      </mat-form-field><mat-form-field appearance="outline">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
         <mat-label>Source Filter</mat-label>
-        <input matInput type="text" formControlName="sourceApp">
-      </mat-form-field><mat-form-field appearance="outline">
+        <mat-select formControlName="sourceApp">
+          <mat-option [value]="">-</mat-option>
+          <mat-option *ngFor="let app of applications" [value]="app.name">
+            {{app.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
         <mat-label>Target Filter</mat-label>
-        <input matInput type="text" formControlName="targetApp">
+        <mat-select formControlName="targetApp" (ngModelChange)="refreshFlow()">
+          <mat-option [value]="">-</mat-option>
+          <mat-option *ngFor="let app of applications" [value]="app.name">
+            {{app.name}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </form>
   </div>
   <div class="table-area">
-    <div class="table-container">
+    <div *ngIf="flows.results && !flows.results.length" class="no-data"><h1>No datas to show </h1> <mat-icon class="bad-icon">sentiment_very_dissatisfied</mat-icon></div>
+    <div class="table-container" *ngIf="flows.results && flows.results.length">
       <table mat-table
              [dataSource]="dataSources" matSort multiTemplateDataRows
              class="mat-elevation-z8">

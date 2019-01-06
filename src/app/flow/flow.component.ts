@@ -25,6 +25,7 @@ import {Application} from "../models/application.model";
 export class FlowComponent implements OnInit {
 
   public filterForm: FormGroup;
+  public globalFilterForm: FormGroup;
 
   public flows: FlowResult;
   public applications: Application[];
@@ -32,6 +33,7 @@ export class FlowComponent implements OnInit {
   public expandedElement: Flow;
   public dataSources;
   public loading = true;
+  public advancedFilter = false;
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -71,6 +73,14 @@ export class FlowComponent implements OnInit {
       sourceApp: ['', []],
       targetApp: ['', []],
     });
+    this.globalFilterForm = this.formBuilder.group({
+      valueFilter: ['', []],
+      nameCheck: [true, []],
+      descriptionCheck: [true, []],
+      technologieCheck: [true, []],
+      sourceAppCheck: [true, []],
+      targetAppCheck: [true, []],
+    });
   }
 
   get nameFilter() {
@@ -91,6 +101,30 @@ export class FlowComponent implements OnInit {
 
   get sourceApp() {
     return this.filterForm.get('sourceApp');
+  }
+
+  get valueFilter() {
+    return this.globalFilterForm.get('valueFilter');
+  }
+
+  get nameCheck() {
+    return this.globalFilterForm.get('nameCheck');
+  }
+
+  get descriptionCheck() {
+    return this.globalFilterForm.get('descriptionCheck');
+  }
+
+  get technologieCheck() {
+    return this.globalFilterForm.get('technologieCheck');
+  }
+
+  get sourceAppCheck() {
+    return this.globalFilterForm.get('sourceAppCheck');
+  }
+
+  get targetAppCheck() {
+    return this.globalFilterForm.get('targetAppCheck');
   }
 
   // Open Dialog for add new Flow
@@ -148,25 +182,59 @@ export class FlowComponent implements OnInit {
 
   // Make params object for refresh
   private makeParams() {
+
+    let limit;
+    let page;
+    interface Params {
+      name?: string,
+      description?: string,
+      technologies?: string
+      sourceAppName?: string
+      targetAppName?: string
+    }
+
     if (this.pageEvent) {
-      return {
-        'limit': this.pageEvent.pageSize,
-        'page': (this.pageEvent.pageIndex * this.pageEvent.pageSize),
-        'technologies': this.technologieFilter.value,
-        'description': this.descriptionFilter.value,
-        'name': this.nameFilter.value
-      }
+      limit = this.pageEvent.pageSize;
+      page = this.pageEvent.pageIndex * this.pageEvent.pageSize;
     } else {
+      limit = 5;
+      page = 0;
+    }
+
+    if (this.advancedFilter) {
+      const sourceName = this.sourceApp.value ? this.sourceApp.value : '';
+      const targetName = this.targetApp.value ? this.targetApp.value : '';
       return {
+        'strict': 1,
         'limit': 5,
         'page': 0,
         'technologies': this.technologieFilter.value,
         'description': this.descriptionFilter.value,
         'name': this.nameFilter.value,
-        'targetAppName': this.targetApp.value,
-        'sourceAppName': this.sourceApp.value,
+        'targetAppName': targetName,
+        'sourceAppName': sourceName,
+      }
+    } else {
+      const value = this.valueFilter.value;
+      let params = new class implements Params {
+        strict?: number;
+        limit?: number;
+        page?: number;
+        description?: string;
+        name?: string;
+        technologies?: string;
+        targetAppName?: string;
+        sourceAppName?: string;
       };
+      params.strict = 0;
+      params.limit = limit;
+      params.page = page;
+      this.nameCheck.value ? params.name = value : '';
+      this.technologieCheck.value ? params.technologies = value : '';
+      this.descriptionCheck.value ? params.description = value : '';
+      this.sourceAppCheck.value ? params.sourceAppName = value : '';
+      this.targetAppCheck.value ? params.targetAppName = value : '';
+      return params;
     }
-
   }
 }
