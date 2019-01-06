@@ -38,7 +38,7 @@ export class ApplicationService {
 
   // First load datas with 5 element per page
   initApp() {
-    const params: Params = {'limit': 5, 'page': 0};
+    const params: Params = {'limit': 5, 'page': 0, 'strict': 0};
     this.http.get(`${environment.apiBaseUrl}/apps`, {params}).subscribe((data: AppResult) => {
       this.dataStore.applications = data;
       this._applications.next(Object.assign({}, this.dataStore).applications);
@@ -47,7 +47,7 @@ export class ApplicationService {
 
   // Get all apps
   loadAll() {
-    const params: Params = {'limit': 0, 'page': 0};
+    const params: Params = {'limit': 0, 'page': 0, 'strict': 0};
     this.http.get(`${environment.apiBaseUrl}/apps`, {params}).subscribe((data: AppResult) => {
       this.allAppStore.allApplications = data.results;
       this._allApplications.next(Object.assign({}, this.allAppStore).allApplications);

@@ -15,24 +15,42 @@ export class FlowService {
 
   // ReactiveX object for datas
   flows: Observable<FlowResult>;
+  allFlows: Observable<Flow[]>;
   private _flows: BehaviorSubject<FlowResult>;
+  private _allFlows: BehaviorSubject<Flow[]>;
   private dataStore: {
     flows: FlowResult;
+  };
+  private allFlowsStore: {
+    allFlows: Flow[];
   };
 
   constructor(private http: HttpClient, private toastr: ToastrService) {
     this.dataStore = {flows: {}};
+    this.allFlowsStore = {allFlows: []};
     this._flows = <BehaviorSubject<FlowResult>>new BehaviorSubject({});
+    this._allFlows = <BehaviorSubject<Flow[]>>new BehaviorSubject({});
     this.flows = this._flows.asObservable();
+    this.allFlows = this._allFlows.asObservable();
+    this.initFlow();
     this.loadAll();
   }
 
   // First load datas with 5 element per page
-  loadAll() {
-    const params: Params = {'limit': 5, 'page': 0};
+  initFlow() {
+    const params: Params = {'limit': 5, 'page': 0, 'strict': 1};
     this.http.get(`${environment.apiBaseUrl}/flows`, {params}).subscribe((data: FlowResult) => {
       this.dataStore.flows = data;
       this._flows.next(Object.assign({}, this.dataStore).flows);
+    }, error => this.toastr.error(error, 'Failed to load flows'));
+  }
+
+  // load all flows
+  loadAll() {
+    const params: Params = {'limit': 0, 'page': 0, 'strict': 1};
+    this.http.get(`${environment.apiBaseUrl}/flows`, {params}).subscribe((data: FlowResult) => {
+      this.allFlowsStore.allFlows = data.results;
+      this._allFlows.next(Object.assign({}, this.allFlowsStore).allFlows);
     }, error => this.toastr.error(error, 'Failed to load flows'));
   }
 
@@ -42,6 +60,7 @@ export class FlowService {
       this.dataStore.flows = data;
       this._flows.next(Object.assign({}, this.dataStore).flows);
     }, error => this.toastr.error(error, 'Failed to load flows'));
+    this.loadAll();
   }
 
   // Save new flow

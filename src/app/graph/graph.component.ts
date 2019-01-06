@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import * as shape from 'd3-shape';
 import {FlowService} from "../services/flow.service";
-import {FlowResult} from "../models/flowResult.model";
 import {ApplicationService} from "../services/application.service";
 import {Application} from "../models/application.model";
+import {Flow} from "../models/flow.model";
 
 @Component({
   selector: 'app-graph',
@@ -12,7 +12,7 @@ import {Application} from "../models/application.model";
 })
 export class GraphComponent implements OnInit {
 
-  public flows: FlowResult;
+  public flows: Flow[];
   public applications: Application[];
   public loading = true;
   public allNodesLoading = true;
@@ -32,7 +32,7 @@ export class GraphComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.flowService.flows.subscribe(flows => {
+    this.flowService.allFlows.subscribe(flows => {
       this.flows = flows;
       this.initgraph();
     });
@@ -64,11 +64,11 @@ export class GraphComponent implements OnInit {
   }
 
   private initgraph(): void {
-    if (this.flows && this.flows.results && this.flows.results.length > 0) {
+    if (this.flows && this.flows.length > 0) {
       this.nodesWithLinks = [];
       let links = [];
 
-      for (let flow of this.flows.results) {
+      for (let flow of this.flows) {
         links.push({
           source: '' + flow.sourceApp.id,
           target: '' + flow.targetApp.id,
@@ -81,7 +81,7 @@ export class GraphComponent implements OnInit {
       this.hierarchialGraph.links = links;
       this.graphLoading = false;
       this.checkLoading();
-    } else if (this.flows && this.flows.results && this.flows.results.length === 0) {
+    } else if (this.flows && this.flows.length === 0) {
       this.noDatas = true;
       this.graphLoading = false;
     }

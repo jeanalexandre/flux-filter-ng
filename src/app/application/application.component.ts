@@ -161,6 +161,8 @@ export class ApplicationComponent implements OnInit {
   // Make params object for refresh
   private makeParams() {
 
+    let limit;
+    let page;
     interface Params {
       name?: string,
       team?: string,
@@ -168,8 +170,6 @@ export class ApplicationComponent implements OnInit {
       technologies?: string
     }
 
-    let limit;
-    let page;
     if (this.pageEvent) {
       limit = this.pageEvent.pageSize;
       page = this.pageEvent.pageIndex * this.pageEvent.pageSize;
@@ -177,6 +177,7 @@ export class ApplicationComponent implements OnInit {
       limit = 5;
       page = 0;
     }
+
     if (this.advancedFilter) {
       return {
         'strict': 1,
@@ -189,13 +190,18 @@ export class ApplicationComponent implements OnInit {
       }
     } else {
       const value = this.valueFilter.value;
-
       let params = new class implements Params {
+        strict?: number;
+        limit?: number;
+        page?: number;
         description?: string;
         name?: string;
         team?: string;
         technologies?: string;
       };
+      params.strict = 1;
+      params.limit = limit;
+      params.page = page;
       this.nameCheck.value ? params.name = value : '';
       this.teamCheck.value ? params.team = value : '';
       this.technologieCheck.value ? params.technologies = value : '';
